@@ -40,18 +40,18 @@ class AuthController extends Controller
                     'username' => 'Hesabınız askıya alınmıştır. Detaylı Bilgi İçin Canlı Desteğe Bağlanınız.'
                 ]);
             }
-            
+
             session(['admin_id' => $admin->id, 'admin' => $admin]);
             $admin->update([
                 'songirisi' => now(),
                 'songirisip' => $request->ip()
             ]);
-            
+
             // Inertia ile uyumlu response
             if ($request->wantsJson() || $request->header('X-Inertia')) {
                 return response()->json(['success' => true]);
             }
-            
+
             return redirect()->intended('/');
         } else {
             throw \Illuminate\Validation\ValidationException::withMessages([

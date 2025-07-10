@@ -2,7 +2,65 @@
   <q-header elevated class="bg-dark text-white">
     <q-toolbar class="q-px-lg">
       <q-space />
-      <div class="auth-actions row items-center q-gutter-sm">
+
+      <!-- Giriş yapmış kullanıcı için profil alanı -->
+      <div v-if="isAuthenticated" class="user-profile row items-center q-gutter-sm">
+        <div class="user-info">
+          <div class="user-name">{{ user.name }}</div>
+          <div class="user-balance">{{ user.bakiye }} {{ user.parabirimi }}</div>
+        </div>
+
+        <q-btn-dropdown flat round class="user-avatar">
+          <template v-slot:label>
+            <q-avatar color="green" text-color="white" size="40px">
+              <q-icon name="person" />
+            </q-avatar>
+          </template>
+
+          <q-list>
+            <q-item clickable v-close-popup>
+              <q-item-section avatar>
+                <q-icon name="account_circle" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>Profil</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-close-popup>
+              <q-item-section avatar>
+                <q-icon name="account_balance_wallet" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>Bakiye</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item clickable v-close-popup>
+              <q-item-section avatar>
+                <q-icon name="settings" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>Ayarlar</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-separator />
+
+            <q-item clickable v-close-popup @click="logout">
+              <q-item-section avatar>
+                <q-icon name="logout" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>Çıkış Yap</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
+      </div>
+
+      <!-- Giriş yapmamış kullanıcı için giriş butonları -->
+      <div v-else class="auth-actions row items-center q-gutter-sm">
         <q-btn flat no-caps label="GİRİŞ" class="nav-btn" @click="openLoginModal" />
         <q-btn unelevated no-caps label="Kayıt Ol" class="register-btn" color="green" @click="openRegisterModal" />
       </div>
@@ -21,6 +79,7 @@ import { defineComponent } from 'vue'
 import LoginModal from './LoginModal.vue'
 import RegisterModal from './RegisterModal.vue'
 import { useAuthModals } from '../composables/useAuthModals'
+import { useAuth } from '../composables/useAuth'
 
 export default defineComponent({
   name: 'AppHeader',
@@ -42,6 +101,14 @@ export default defineComponent({
       handleRegisterSuccess
     } = useAuthModals()
 
+    const { user, isAuthenticated, logout } = useAuth()
+
+    // Login success handler'ı güncelleyelim
+    const handleLogin = () => {
+      handleLoginSuccess({})
+      // Sayfa yenileneceği için user bilgisi otomatik güncellenecek
+    }
+
     return {
       showLoginModal,
       showRegisterModal,
@@ -49,14 +116,48 @@ export default defineComponent({
       openRegisterModal,
       switchToRegister,
       switchToLogin,
-      handleLoginSuccess,
-      handleRegisterSuccess
+      handleLoginSuccess: handleLogin,
+      handleRegisterSuccess,
+      user,
+      isAuthenticated,
+      logout
     }
   }
 })
 </script>
 
 <style scoped>
+.user-profile {
+  margin-right: 16px;
+}
+
+.user-info {
+  text-align: right;
+  margin-right: 12px;
+}
+
+.user-name {
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.user-balance {
+  color: #00ff88;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.user-avatar {
+  transition: all 0.3s ease;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+}
+
 .auth-actions {
   /* Butonları sağa hizala */
   margin-right: 16px;
@@ -111,8 +212,14 @@ export default defineComponent({
     padding: 0 16px;
   }
 
+  .user-profile,
   .auth-actions {
     margin-right: 0;
+  }
+
+  .user-info {
+    display: none;
+    /* Mobilde sadece avatar göster */
   }
 
   .nav-btn,

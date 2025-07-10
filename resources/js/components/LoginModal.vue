@@ -1,113 +1,65 @@
 <template>
-  <q-dialog
-    :model-value="modelValue"
-    @update:model-value="$emit('update:modelValue', $event)"
-    persistent
-  >
-    <q-card class="login-modal">
-      <q-card-section class="modal-header">
-        <div class="header-content">
-          <img src="/images/logon.png" alt="Logo" class="modal-logo" />
-          <q-btn
-            flat
-            round
-            dense
-            icon="close"
-            class="close-btn"
-            @click="closeModal"
-          />
-        </div>
-      </q-card-section>
+    <q-dialog :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)" persistent>
+        <q-card class="login-modal">
+            <q-card-section class="modal-header">
+                <div class="header-content">
+                    <img src="/images/logon.png" alt="Logo" class="modal-logo" />
+                    <q-btn flat round dense icon="close" class="close-btn" @click="closeModal" />
+                </div>
+            </q-card-section>
 
-      <q-card-section class="modal-body">
-        <div class="form-title">
-          <h3>Giriş Yap</h3>
-          <p>Hesabınıza giriş yapın ve kazanmaya başlayın!</p>
-        </div>
+            <q-card-section class="modal-body">
+                <div class="form-title">
+                    <h3>Giriş Yap</h3>
+                    <p>Hesabınıza giriş yapın ve kazanmaya başlayın!</p>
+                </div>
 
-        <q-form @submit.prevent="handleLogin" class="login-form">
-          <!-- Username -->
-          <div class="form-group">
-            <q-input
-              v-model="form.username"
-              name="username"
-              label="Kullanıcı Adı"
-              outlined
-              dense
-              class="custom-input"
-              :error="!!form.errors.username"
-              :error-message="form.errors.username"
-            >
-              <template v-slot:prepend>
-                <q-icon name="person" color="green" />
-              </template>
-            </q-input>
-          </div>
+                <q-form @submit.prevent="handleLogin" class="login-form">
+                    <!-- Username -->
+                    <div class="form-group">
+                        <q-input v-model="form.username" name="username" label="Kullanıcı Adı" outlined dense
+                            class="custom-input" :error="!!form.errors.username" :error-message="form.errors.username">
+                            <template v-slot:prepend>
+                                <q-icon name="person" color="green" />
+                            </template>
+                        </q-input>
+                    </div>
 
-          <!-- Password -->
-          <div class="form-group">
-            <q-input
-              v-model="form.password"
-              name="password"
-              :type="showPassword ? 'text' : 'password'"
-              label="Şifre"
-              outlined
-              dense
-              class="custom-input"
-              :error="!!form.errors.password"
-              :error-message="form.errors.password"
-            >
-              <template v-slot:prepend>
-                <q-icon name="lock" color="green" />
-              </template>
-              <template v-slot:append>
-                <q-icon
-                  :name="showPassword ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="showPassword = !showPassword"
-                />
-              </template>
-            </q-input>
-          </div>
+                    <!-- Password -->
+                    <div class="form-group">
+                        <q-input v-model="form.password" name="password" :type="showPassword ? 'text' : 'password'"
+                            label="Şifre" outlined dense class="custom-input" :error="!!form.errors.password"
+                            :error-message="form.errors.password">
+                            <template v-slot:prepend>
+                                <q-icon name="lock" color="green" />
+                            </template>
+                            <template v-slot:append>
+                                <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" class="cursor-pointer"
+                                    @click="showPassword = !showPassword" />
+                            </template>
+                        </q-input>
+                    </div>
 
-          <!-- Remember & Forgot -->
-          <div class="form-options">
-            <div></div>
-            <q-btn
-              flat
-              no-caps
-              class="forgot-password"
-              label="Şifremi Unuttum"
-              @click="forgotPassword"
-            />
-          </div>
+                    <!-- Remember & Forgot -->
+                    <div class="form-options">
+                        <div></div>
+                        <q-btn flat no-caps class="forgot-password" label="Şifremi Unuttum" @click="forgotPassword" />
+                    </div>
 
-          <!-- Submit -->
-          <q-btn
-            type="submit"
-            class="login-btn"
-            label="Giriş Yap"
-            no-caps
-            :loading="form.processing"
-            :disable="form.processing"
-          />
-        </q-form>
-      </q-card-section>
+                    <!-- Submit -->
+                    <q-btn type="submit" class="login-btn" label="Giriş Yap" no-caps :loading="form.processing"
+                        :disable="form.processing" />
+                </q-form>
+            </q-card-section>
 
-      <q-card-section class="modal-footer">
-        <div class="register-link">
-          <span>Hesabınız yok mu?</span>
-          <q-btn
-            flat
-            no-caps
-            class="register-btn"
-            label="Kayıt Ol"
-            @click="switchToRegister"
-          />
-        </div>
-      </q-card-section>
-    </q-card>
-  </q-dialog>
+            <q-card-section class="modal-footer">
+                <div class="register-link">
+                    <span>Hesabınız yok mu?</span>
+                    <q-btn flat no-caps class="register-btn" label="Kayıt Ol" @click="switchToRegister" />
+                </div>
+            </q-card-section>
+        </q-card>
+    </q-dialog>
 </template>
 
 <script setup lang="ts">
@@ -116,46 +68,46 @@ import { useForm } from '@inertiajs/vue3'
 import { route } from 'ziggy-js'
 
 interface Props {
-  modelValue: boolean
+    modelValue: boolean
 }
 defineProps<Props>()
 const emit = defineEmits<{
-  (e: 'update:modelValue', v: boolean): void
-  (e: 'switch-to-register'): void
-  (e: 'login-success'): void
+    (e: 'update:modelValue', v: boolean): void
+    (e: 'switch-to-register'): void
+    (e: 'login-success'): void
 }>()
 
 // Form’u username ile kuruyoruz
 const form = useForm({
-  username: '',
-  password: '',
+    username: '',
+    password: '',
 })
 
 const showPassword = ref(false)
 
 const closeModal = () => {
-  emit('update:modelValue', false)
+    emit('update:modelValue', false)
 }
 
 const handleLogin = () => {
-  form.post(route('user.login'), {
-    onSuccess: () => {
-      emit('login-success')
-      closeModal()
-    },
-    onError: (errors) => {
-      console.error('Login errors:', errors)
-    },
-    onFinish: () => {
-      form.reset('password')
-    },
-  })
+    form.post(route('user.login'), {
+        onSuccess: () => {
+            emit('login-success')
+            closeModal()
+        },
+        onError: (errors) => {
+            console.error('Login errors:', errors)
+        },
+        onFinish: () => {
+            form.reset('password')
+        },
+    })
 }
 
 const switchToRegister = () => emit('switch-to-register')
 
 const forgotPassword = () => {
-  window.location.href = route('password.request')
+    window.location.href = route('password.request')
 }
 </script>
 
