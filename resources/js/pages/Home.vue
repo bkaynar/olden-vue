@@ -1,5 +1,6 @@
 <template>
     <div class="home-page">
+
         <!-- Hero Carousel -->
         <HeroCarousel :carousel-items="carouselItems" @join-now="joinNow" />
         <div class="section-header">
@@ -8,8 +9,18 @@
                 <span>Son Kazananlar</span>
             </div>
         </div>
+
         <TopWinners :last-winners="lastWinners" />
 
+        <div class="ligobet-games-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <q-icon name="sports_soccer" color="yellow" size="md" />
+                    <span>Canlı Maçlar</span>
+                </div>
+            </div>
+            <LiveMatchesRow />
+        </div>
 
         <!-- Ligobet Oyunlar Section -->
         <div class="ligobet-games-section">
@@ -21,6 +32,28 @@
             </div>
             <Games :games="games" />
         </div>
+
+        <!-- Canlı Casino Section -->
+        <div class="ligobet-games-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <q-icon name="casino" color="red" size="md" />
+                    <span>Canlı Casino</span>
+                </div>
+            </div>
+            <LiveCasino :games="games" />
+        </div>
+
+        <!-- Canlı Maçlar Section -->
+        <div class="ligobet-games-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <q-icon name="sports_soccer" color="yellow" size="md" />
+                    <span>Canlı Maçlar</span>
+                </div>
+            </div>
+            <LiveMatchesRow />
+        </div>
     </div>
 </template>
 
@@ -30,11 +63,13 @@ import MainLayout from '../layouts/MainLayout.vue'
 import HeroCarousel from '../components/HeroCarousel.vue'
 import TopWinners from '../components/TopWinners.vue'
 import Games from '../components/Games.vue'
+import LiveCasino from '../components/LiveCasino.vue'
+import LiveMatchesRow from '../components/LiveMatchesRow.vue'
 
 export default defineComponent({
     name: 'HomePage',
     layout: MainLayout,
-    components: { HeroCarousel, TopWinners, Games },
+    components: { HeroCarousel, TopWinners, Games, LiveCasino, LiveMatchesRow },
     props: {
         carouselItems: {
             type: Array,
@@ -60,7 +95,7 @@ export default defineComponent({
             { key: 'games', label: 'Oyunlar' },
             { key: 'sports', label: 'Sports' }
         ])
-        const games = ref(props.allGames)
+        const games = ref((props.allGames ?? []) as any)
         const inviteRewards = ref([
             { id: 1, username: 'or***07', amount: '250.00' },
             { id: 2, username: 'bi***ka', amount: '250.00' },
