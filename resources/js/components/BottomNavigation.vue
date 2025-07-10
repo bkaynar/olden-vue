@@ -1,5 +1,5 @@
 <template>
-    <div class="bottom-navigation" v-show="$q.screen.lt.lg">
+    <div class="bottom-navigation" v-if="$q.screen.lt.md">
         <div class="nav-items">
             <div v-for="item in navItems" :key="item.name" :class="['nav-item', { active: item.active }]"
                 @click="selectNavItem(item)">

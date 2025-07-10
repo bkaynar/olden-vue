@@ -16,6 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useQuasar } from 'quasar'
 import AppHeader from '../components/Header.vue'
 import AppSidebar from '../components/Sidebar.vue'
 import BottomNavigation from '../components/BottomNavigation.vue'
@@ -30,6 +31,7 @@ export default defineComponent({
   },
 
   setup() {
+    const $q = useQuasar()
     const sidebarRef = ref<InstanceType<typeof AppSidebar> | null>(null)
 
     const toggleSidebar = () => {
@@ -39,6 +41,7 @@ export default defineComponent({
     }
 
     return {
+      $q,
       sidebarRef,
       toggleSidebar
     }
@@ -48,10 +51,10 @@ export default defineComponent({
 
 <style scoped>
 .main-content {
-    background: #1a1a1a url('/images/bg.png') no-repeat center center;
-    background-size: cover;
-    min-height: calc(100vh - 60px);
-    padding: 0;
+  background: #1a1a1a url('/images/bg.png') no-repeat center center;
+  background-size: cover;
+  min-height: calc(100vh - 60px);
+  padding: 0;
 }
 
 /* Layout adjustments */
@@ -65,7 +68,7 @@ export default defineComponent({
 }
 
 /* Mobile adjustments */
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   :deep(.q-page-container) {
     padding-left: 0;
     padding-bottom: 80px;
@@ -80,7 +83,7 @@ export default defineComponent({
 
 /* iPhone X ve sonrası için safe area desteği */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-  @media (max-width: 1023px) {
+  @media (max-width: 767px) {
     :deep(.q-page-container) {
       padding-bottom: calc(80px + env(safe-area-inset-bottom));
     }
