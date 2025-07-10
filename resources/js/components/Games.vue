@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md bg-gradient-dark rounded-borders">
+  <div class="q-pa-md rounded-borders">
     <!-- tabs + sağda tümünü gör butonu -->
     <div class="row items-center justify-between q-mb-lg">
       <div class="row q-gutter-sm">
@@ -11,10 +11,10 @@
       <q-btn flat rounded dense class="view-all-btn" label="Tümünü Gör" icon-right="arrow_forward" />
     </div>
 
-    <!-- grid list, sadece 5 oyun -->
+    <!-- grid list, sadece 6 oyun -->
     <div class="row q-gutter-lg justify-start">
       <template v-if="filteredGames.length > 0">
-        <div v-for="(game, idx) in filteredGames.slice(0, 5)" :key="idx"
+        <div v-for="(game, idx) in filteredGames.slice(0, 6)" :key="idx"
           class="modern-game-card relative flex items-center justify-center overflow-hidden group"
           @mouseenter="hovered = idx" @mouseleave="hovered = null">
           <!-- Background gradient -->
@@ -79,7 +79,6 @@ const fallbackGames: Game[] = [
   { name: 'Starburst', provider: 'NetEnt', isNew: false, highRtp: false, popular: true, category: 'planor' },
   { name: 'Mega Moolah', provider: 'Microgaming', isNew: false, highRtp: true, popular: true, category: 'planor' },
   { name: 'Mega Moolah', provider: 'Microgaming', isNew: false, highRtp: true, popular: true, category: 'planor' },
-
 ]
 
 // Dinamik kategoriler

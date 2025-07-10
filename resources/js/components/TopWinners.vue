@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-sm bg-dark rounded-borders relative overflow-hidden full-width select-none">
+  <div class="q-pa-sm rounded-borders relative overflow-hidden full-width select-none">
     <!-- continuously-scrolling winners tape -->
     <div
       class="overflow-hidden"

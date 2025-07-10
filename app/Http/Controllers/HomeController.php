@@ -84,10 +84,22 @@ class HomeController extends Controller
                 ];
             });
 
+        // Canlı Casino oyunları için Eloquent ile sorgu
+        $liveCasinoGames = \App\Models\CanliCasino::orderBy('sira', 'asc')->get()->map(function ($game) {
+            $cover = $game->gorsel ?? null;
+            if ($cover && !str_starts_with($cover, 'http') && !str_starts_with($cover, '/images/')) {
+                $cover = '/images/' . ltrim($cover, '/');
+            }
+            return [
+                'cover' => $cover,
+            ];
+        });
+
         return Inertia::render('Home', [
             'carouselItems' => $carouselItems,
             'lastWinners' => $lastWinners,
             'allGames' => $allGames,
+            'liveCasinoGames' => $liveCasinoGames,
         ]);
     }
 }
