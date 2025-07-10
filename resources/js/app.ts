@@ -10,6 +10,14 @@ import { createApp, h } from 'vue';
 import { ZiggyVue } from 'ziggy-js';
 import { initializeTheme } from './composables/useAppearance';
 
+// Font Awesome imports
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFacebookF, faInstagram, faTelegram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+// Add icons to the library
+library.add(faFacebookF, faTwitter, faInstagram, faTelegram, faYoutube);
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -20,6 +28,7 @@ createInertiaApp({
             .use(plugin)
             .use(Quasar)
             .use(ZiggyVue)
+            .component('font-awesome-icon', FontAwesomeIcon)
             .mount(el);
     },
     progress: {

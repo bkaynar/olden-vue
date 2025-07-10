@@ -5,16 +5,21 @@
             <div class="container">
                 <h3 class="social-title">Bizi Takip Edin</h3>
                 <div class="social-buttons">
-                    <q-btn round size="lg" class="social-btn facebook" icon="fab fa-facebook-f"
-                        @click="openSocialLink('facebook')" />
-                    <q-btn round size="lg" class="social-btn twitter" icon="fab fa-twitter"
-                        @click="openSocialLink('twitter')" />
-                    <q-btn round size="lg" class="social-btn instagram" icon="fab fa-instagram"
-                        @click="openSocialLink('instagram')" />
-                    <q-btn round size="lg" class="social-btn telegram" icon="fab fa-telegram"
-                        @click="openSocialLink('telegram')" />
-                    <q-btn round size="lg" class="social-btn youtube" icon="fab fa-youtube"
-                        @click="openSocialLink('youtube')" />
+                    <q-btn round size="lg" class="social-btn facebook" @click="openSocialLink('facebook')">
+                        <font-awesome-icon :icon="['fab', 'facebook-f']" />
+                    </q-btn>
+                    <q-btn round size="lg" class="social-btn twitter" @click="openSocialLink('twitter')">
+                        <font-awesome-icon :icon="['fab', 'twitter']" />
+                    </q-btn>
+                    <q-btn round size="lg" class="social-btn instagram" @click="openSocialLink('instagram')">
+                        <font-awesome-icon :icon="['fab', 'instagram']" />
+                    </q-btn>
+                    <q-btn round size="lg" class="social-btn telegram" @click="openSocialLink('telegram')">
+                        <font-awesome-icon :icon="['fab', 'telegram']" />
+                    </q-btn>
+                    <q-btn round size="lg" class="social-btn youtube" @click="openSocialLink('youtube')">
+                        <font-awesome-icon :icon="['fab', 'youtube']" />
+                    </q-btn>
                 </div>
             </div>
         </div>
