@@ -8,9 +8,24 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
+    // Özel Auth Controller Route'ları
+    Route::get('user/login', [AuthController::class, 'showLoginModal'])
+        ->name('user.login.show');
+    
+    Route::post('user/login', [AuthController::class, 'userLogin'])
+        ->name('user.login');
+    
+    Route::get('user/register', [AuthController::class, 'showRegisterModal'])
+        ->name('user.register.show');
+    
+    Route::post('user/register', [AuthController::class, 'userRegister'])
+        ->name('user.register');
+
+    // Laravel Breeze default routes
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
@@ -35,6 +50,10 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    // Özel logout route
+    Route::post('user/logout', [AuthController::class, 'userLogout'])
+        ->name('user.logout');
+
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
