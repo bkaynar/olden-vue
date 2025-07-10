@@ -1,5 +1,5 @@
 <template>
-  <div class="relative overflow-hidden full-width bg-dark rounded-borders q-pa-md">
+  <div class="relative overflow-hidden full-width rounded-borders q-pa-md p-4">
     <!-- Gradient overlays for fade effect -->
     <div class="absolute-left gradient-overlay-left"></div>
     <div class="absolute-right gradient-overlay-right"></div>
@@ -110,7 +110,7 @@ interface WinnerRaw {
 const props = defineProps<{ lastWinners: WinnerRaw[] }>()
 
 const maskedUsername = (u = '') => 
-  u.length < 4 ? u : `${u.slice(0, 2)}***${u.slice(-2)}`
+  u.length < 4 ? u : `${u.slice(0, 1)}***${u.slice(-2)}`
 
 const normalized = computed(() =>
   props.lastWinners.map(w => ({
@@ -123,7 +123,7 @@ const normalized = computed(() =>
 )
 
 // Seconds per card – lower => faster scroll
-const speed = 3.5
+const speed = 0.5
 const isPaused = ref(false)
 
 const onPlay = (winner: any) => {

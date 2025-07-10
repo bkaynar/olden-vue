@@ -40,19 +40,9 @@
                     <q-icon name="casino" color="red" size="md" />
                     <span>Canlı Casino</span>
                 </div>
+                <q-btn flat rounded dense class="view-all-btn" label="Tümünü Gör" icon-right="arrow_forward" />
             </div>
             <LiveCasino :games="games" />
-        </div>
-
-        <!-- Canlı Maçlar Section -->
-        <div class="ligobet-games-section">
-            <div class="section-header">
-                <div class="section-title">
-                    <q-icon name="sports_soccer" color="yellow" size="md" />
-                    <span>Canlı Maçlar</span>
-                </div>
-            </div>
-            <LiveMatchesRow />
         </div>
     </div>
 </template>
@@ -460,4 +450,35 @@ export default defineComponent({
         gap: 16px;
     }
 }
+
+.view-all-btn {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  right: 20px;
+  height: 40px;
+  /* Sabit yükseklik ekledik */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 16px !important;
+  /* Padding'i tamamen sıfırlamak yerine uygun değer verdik */
+  text-align: center;
+}
+
+.view-all-btn .q-btn__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* İkon ve metin arasında boşluk */
+}
+
+.view-all-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
+}   
 </style>
