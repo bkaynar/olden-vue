@@ -61,21 +61,11 @@
       <template v-if="filteredGames.length > 0">
         <!-- Swiper carousel -->
         <div class="swiper-container">
-          <swiper
-            :modules="modules"
-            :slides-per-view="'auto'"
-            :centered-slides="true"
-            :space-between="20"
-            :initial-slide="0"
-            :loop="true"
-            :navigation="{
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            }"
-            class="games-swiper"
-            @swiper="onSwiper"
-            @slide-change="onSlideChange"
-          >
+          <swiper :modules="modules" :slides-per-view="'auto'" :centered-slides="true" :space-between="20"
+            :initial-slide="0" :loop="true" :navigation="{
+              nextEl: `#${uniqueGamesSwiperId}-next`,
+              prevEl: `#${uniqueGamesSwiperId}-prev`,
+            }" class="games-main-swiper" @swiper="onSwiper" @slide-change="onSlideChange">
             <swiper-slide v-for="(game, idx) in filteredGames.slice(0, 6)" :key="idx" class="game-slide">
               <div class="modern-game-card-mobile relative flex items-center justify-center overflow-hidden"
                 :class="{ 'active-card': activeSlideIndex === idx, 'side-card': activeSlideIndex !== idx }">
@@ -107,9 +97,9 @@
             </swiper-slide>
           </swiper>
 
-          <!-- Custom Navigation Buttons -->
-          <div class="swiper-button-prev custom-nav-btn"></div>
-          <div class="swiper-button-next custom-nav-btn"></div>
+          <!-- Games Navigation Buttons -->
+          <div :id="`${uniqueGamesSwiperId}-prev`" class="games-nav-prev"></div>
+          <div :id="`${uniqueGamesSwiperId}-next`" class="games-nav-next"></div>
         </div>
       </template>
       <template v-else>
@@ -129,6 +119,10 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-coverflow'
+
+function generateUniqueGamesId() {
+  return 'games-swiper-' + Math.random().toString(36).substr(2, 9)
+}
 
 interface Game {
   name: string
@@ -151,6 +145,7 @@ const modules = [Navigation, Pagination, EffectCoverflow]
 
 // Swiper instance referansı
 const swiperInstance = ref<any>(null)
+const uniqueGamesSwiperId = ref(generateUniqueGamesId())
 
 // Swiper event handlers
 const onSwiper = (swiper: any) => {
@@ -375,7 +370,7 @@ const filteredGames = computed(() => {
   align-items: center;
 }
 
-.games-swiper {
+.games-main-swiper {
   width: 100%;
   height: 100%;
   overflow: visible;
@@ -439,8 +434,11 @@ const filteredGames = computed(() => {
   transform: scale(0.95);
 }
 
-/* Swiper Navigation Buttons */
-.custom-nav-btn {
+/* Games Navigation Buttons - TAMAMEN AYRI CLASS'LAR */
+.games-nav-prev,
+.games-nav-next {
+  position: absolute;
+  top: 50%;
   width: 40px;
   height: 40px;
   margin-top: -20px;
@@ -450,30 +448,50 @@ const filteredGames = computed(() => {
   border-radius: 50%;
   transition: all 0.3s ease;
   z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.custom-nav-btn:after {
-  font-size: 16px;
-  font-weight: bold;
-  color: #e0e0e0;
+.games-nav-prev::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 10px 6px 0;
+  border-color: transparent #e0e0e0 transparent transparent;
 }
 
-.custom-nav-btn:hover {
+.games-nav-next::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent #e0e0e0;
+}
+
+.games-nav-prev:hover,
+.games-nav-next:hover {
   background: rgba(255, 255, 255, 0.25);
   transform: scale(1.05);
   border-color: rgba(102, 126, 234, 0.4);
 }
 
-.custom-nav-btn.swiper-button-disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+.games-nav-prev:hover::after {
+  border-color: transparent #fff transparent transparent;
 }
 
-.swiper-button-prev.custom-nav-btn {
+.games-nav-next:hover::after {
+  border-color: transparent transparent transparent #fff;
+}
+
+.games-nav-prev {
   left: 20px;
 }
 
-.swiper-button-next.custom-nav-btn {
+.games-nav-next {
   right: 20px;
 }
 </style>
