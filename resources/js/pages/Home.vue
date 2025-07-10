@@ -42,7 +42,7 @@
                 </div>
                 <q-btn flat rounded dense class="view-all-btn" label="Tümünü Gör" icon-right="arrow_forward" />
             </div>
-            <LiveCasino :games="games" />
+            <LiveCasino :games="liveCasinoGames" />
         </div>
     </div>
 </template>
@@ -73,6 +73,11 @@ export default defineComponent({
             type: Array,
             required: false,
             default: () => []
+        },
+        liveCasinoGames: {
+            type: Array,
+            required: false,
+            default: () => []
         }
     },
     setup(props) {
@@ -86,6 +91,7 @@ export default defineComponent({
             { key: 'sports', label: 'Sports' }
         ])
         const games = ref((props.allGames ?? []) as any)
+        const liveCasinoGames = ref((props.liveCasinoGames ?? []) as any)
         const inviteRewards = ref([
             { id: 1, username: 'or***07', amount: '250.00' },
             { id: 2, username: 'bi***ka', amount: '250.00' },
@@ -104,6 +110,7 @@ export default defineComponent({
             activeTab,
             winnerTabs,
             games,
+            liveCasinoGames,
             inviteRewards,
             joinNow,
             playGame
