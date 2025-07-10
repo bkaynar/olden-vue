@@ -1,7 +1,10 @@
+import '@quasar/extras/material-icons/material-icons.css';
+import 'quasar/dist/quasar.css';
 import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { Quasar } from 'quasar';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from 'ziggy-js';
@@ -15,6 +18,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(Quasar)
             .use(ZiggyVue)
             .mount(el);
     },
