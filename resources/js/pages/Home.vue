@@ -12,29 +12,41 @@
 
         <TopWinners :last-winners="lastWinners" />
 
-        <div class="ligobet-games-section">
+        <div class="oldenbet-games-section">
             <div class="section-header">
                 <div class="section-title">
                     <q-icon name="sports_soccer" color="yellow" size="md" />
-                    <span>Canlı Maçlar</span>
+                    <span>Bugünün Maçları</span>
                 </div>
             </div>
             <LiveMatchesRow />
         </div>
 
-        <!-- Ligobet Oyunlar Section -->
-        <div class="ligobet-games-section">
+        <!-- Yeni Oyunlar Section -->
+        <div class="oldenbet-games-section">
             <div class="section-header">
                 <div class="section-title">
                     <q-icon name="casino" color="green" size="md" />
-                    <span>Ligobet Oyunlar</span>
+                    <span>Yeni Oyunlar</span>
                 </div>
             </div>
             <Games :games="games" />
         </div>
 
+
+         <!-- Yeni Oyunlar Section -->
+        <div class="oldenbet-games-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <q-icon name="casino" color="green" size="md" />
+                    <span>Casino Oyunları</span>
+                </div>
+            </div>
+            <Casino :games="casino" />
+        </div>
+
         <!-- Canlı Casino Section -->
-        <div class="ligobet-games-section">
+        <div class="oldenbet-games-section">
             <div class="section-header">
                 <div class="section-title">
                     <q-icon name="casino" color="red" size="md" />
@@ -55,11 +67,12 @@ import TopWinners from '../components/TopWinners.vue'
 import Games from '../components/Games.vue'
 import LiveCasino from '../components/LiveCasino.vue'
 import LiveMatchesRow from '../components/LiveMatchesRow.vue'
+import Casino from '../components/Casino.vue'
 
 export default defineComponent({
     name: 'HomePage',
     layout: MainLayout,
-    components: { HeroCarousel, TopWinners, Games, LiveCasino, LiveMatchesRow },
+    components: { HeroCarousel, TopWinners, Games, LiveCasino, LiveMatchesRow , Casino },
     props: {
         carouselItems: {
             type: Array,
@@ -78,7 +91,13 @@ export default defineComponent({
             type: Array,
             required: false,
             default: () => []
+        },
+        casino: {
+            type: Array,
+            required: false,
+            default: () => []
         }
+
     },
     setup(props) {
         console.log('allGames backendden:', props.allGames)
@@ -101,6 +120,7 @@ export default defineComponent({
             { id: 6, username: 'Al***42', amount: '250.00' },
             { id: 7, username: 'Az***90', amount: '250.00' }
         ])
+        const casino = ref((props.casino ?? []) as any)
         const joinNow = () => {
             console.log('Join now clicked')
         }
@@ -110,6 +130,7 @@ export default defineComponent({
             activeTab,
             winnerTabs,
             games,
+            casino,
             liveCasinoGames,
             inviteRewards,
             joinNow,
@@ -121,7 +142,7 @@ export default defineComponent({
 
 <style scoped>
 .home-page {
-    background:  url('/images/bg-1.png') no-repeat center center;
+    background: url('/images/bg-1.png') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
     min-height: 100vh;
@@ -138,7 +159,7 @@ export default defineComponent({
     border-radius: 12px;
 }
 
-.ligobet-games-section {
+.oldenbet-games-section {
     margin-bottom: 40px;
     padding-top: 16px
 }

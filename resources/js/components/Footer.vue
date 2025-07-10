@@ -50,15 +50,15 @@
                         <a href="#" class="footer-link">İletişim</a>
                     </div>
                     <div class="copyright-text">
-                        <p>© 2025 Olden Bet. Tüm hakları saklıdır.</p>
+                        <p>© 2025 Oldenbet. Tüm hakları saklıdır.</p>
                         <p class="disclaimer">
                             18+ yaş sınırı geçerlidir. Kumar bağımlılığına karşı önlem alınız.
                             Sorumlu oyun oynayınız.
                         </p>
                     </div>
                     <div class="license-info">
-                        <p>Curacao Gaming License</p>
-                        <p>License No: 8048/JAZ2020-013</p>
+                        <p>Oldenbet Gaming License</p>
+                        <p>License No: </p>
                     </div>
                 </div>
             </div>
