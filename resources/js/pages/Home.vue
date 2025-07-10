@@ -1,38 +1,7 @@
 <template>
     <div class="home-page">
         <!-- Hero Carousel -->
-        <div class="hero-section">
-            <q-carousel v-model="slide" animated arrows navigation infinite :autoplay="5000" class="hero-carousel">
-                <q-carousel-slide v-for="(item, index) in carouselItems" :key="index" :name="index"
-                    class="carousel-slide" :style="{ background: item.gradient }">
-                    <div class="slide-content">
-                        <div class="slide-text">
-                            <h1 class="slide-title">{{ item.title }}</h1>
-                            <div class="slide-amount">
-                                <span class="amount-number">{{ item.amount }}</span>
-                                <span class="amount-currency">{{ item.currency }}</span>
-                            </div>
-                            <div class="slide-subtitle">{{ item.subtitle }}</div>
-                            <q-btn :label="item.buttonText" class="slide-button" unelevated @click="joinNow" />
-                        </div>
-                        <div class="slide-image">
-                            <img :src="item.image" :alt="item.title" />
-                        </div>
-                        <div class="slide-details">
-                            <div class="detail-item">
-                                <span class="detail-label">DETAYLAR</span>
-                                <span class="detail-value">Davet</span>
-                            </div>
-                            <div class="detail-divider">|</div>
-                            <div class="detail-item">
-                                <span class="detail-label">Geçerlilik Tarihi</span>
-                                <span class="detail-value">Süresiz</span>
-                            </div>
-                        </div>
-                    </div>
-                </q-carousel-slide>
-            </q-carousel>
-        </div>
+        <HeroCarousel :carousel-items="carouselItems" @join-now="joinNow" />
 
         <!-- En Çok Kazananlar Section -->
         <div class="winners-section">
@@ -123,35 +92,20 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import MainLayout from '../layouts/MainLayout.vue'
+import HeroCarousel from '../components/HeroCarousel.vue'
 
 export default defineComponent({
     name: 'HomePage',
     layout: MainLayout,
-
+    components: { HeroCarousel },
+    props: {
+        carouselItems: {
+            type: Array,
+            required: true
+        }
+    },
     setup() {
-        const slide = ref(0)
         const activeTab = ref('casino')
-
-        const carouselItems = ref([
-            {
-                title: 'ARKADAŞINI DAVET ET VE KAZAN!',
-                amount: '5000',
-                currency: '₺',
-                subtitle: 'NAKİT DİREKT ÇEKİM!',
-                buttonText: 'OYNA',
-                gradient: 'linear-gradient(135deg, #00ff88 0%, #00cc6a 100%)',
-                image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=300&fit=crop'
-            },
-            {
-                title: 'MEGA JACKPOT KAZANMA ŞANSI!',
-                amount: '10000',
-                currency: '₺',
-                subtitle: 'BONUS KAZAN!',
-                buttonText: 'KATIL',
-                gradient: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
-                image: 'https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=400&h=300&fit=crop'
-            }
-        ])
 
         const winnerTabs = ref([
             { key: 'casino', label: 'Casino' },
@@ -226,14 +180,12 @@ export default defineComponent({
             console.log('Join now clicked')
         }
 
-        const playGame = (game) => {
-            console.log('Play game:', game.name)
+        const playGame = () => {
+
         }
 
         return {
-            slide,
             activeTab,
-            carouselItems,
             winnerTabs,
             games,
             inviteRewards,

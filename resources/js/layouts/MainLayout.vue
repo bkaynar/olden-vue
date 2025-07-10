@@ -11,7 +11,7 @@
   </q-layout>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import AppHeader from '../components/Header.vue'
 import AppSidebar from '../components/Sidebar.vue'
