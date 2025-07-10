@@ -121,7 +121,7 @@ export default defineComponent({
 
 <style scoped>
 .home-page {
-    background: #14171f url('/images/bg.png') no-repeat center center;
+    background: #14171f url('/images/bg-1.png') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
 

@@ -1,5 +1,5 @@
 <template>
-  <q-drawer v-model="drawer" show-if-above :width="280" class="bg-dark" side="left" bordered :breakpoint="1024" overlay>
+  <q-drawer v-model="drawer" show-if-above :width="280" class="bg-dark" side="left" bordered :breakpoint="1024">
     <div class="sidebar-content">
       <!-- Logo (Sticky) -->
       <div class="sidebar-logo sticky-logo">
@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import { useQuasar } from 'quasar'
 
 interface MenuItem {
@@ -60,7 +60,20 @@ export default defineComponent({
     const $q = useQuasar()
 
     // Mobilde başlangıçta kapalı, desktop'ta açık
-    const drawer = ref($q.screen.gt.md)
+    const drawer = ref($q.screen.gt.lg)
+
+    // Ekran boyutu değişikliklerini dinle ve drawer durumunu güncelle
+    watch(
+      () => $q.screen.gt.lg,
+      (isDesktop) => {
+        if (isDesktop) {
+          // Desktop'ta sidebar açık olmalı
+          drawer.value = true
+        }
+        // Mobilde kullanıcı manuel olarak kapattıysa kapalı kalsın
+        // Bu yüzden sadece desktop geçişinde açıyoruz
+      }
+    )
 
     const menuItems = ref<MenuItem[]>([
       {
