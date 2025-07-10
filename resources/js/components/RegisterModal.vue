@@ -201,7 +201,7 @@
 
                         <div class="form-actions">
                             <q-btn flat class="back-btn" label="Geri" no-caps icon="arrow_back" @click="previousStep" />
-                            <q-btn type="submit" class="register-btn" label="Kayıt Ol" no-caps :loading="loading"
+                            <q-btn type="submit" class="register-btn" label="Kayıt Ol" no-caps :loading="isSubmitting"
                                 :disable="!registerForm.acceptTerms" />
                         </div>
                     </q-form>
@@ -220,6 +220,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
+import { useForm } from '@inertiajs/vue3'
+import { route } from 'ziggy-js'
 
 interface RegisterForm {
     firstName: string
@@ -273,7 +275,7 @@ export default defineComponent({
         const currentStep = ref(1)
         const showPassword = ref(false)
         const showConfirmPassword = ref(false)
-        const loading = ref(false)
+        const isSubmitting = ref(false)
 
         // Currency Options
         const currencyOptions = [
@@ -363,25 +365,54 @@ export default defineComponent({
             registerForm.value.district = ''
         }
 
-        const handleRegister = async () => {
-            loading.value = true
-
-            try {
-                // Burada API çağrısı yapılacak
-                console.log('Register attempt:', registerForm.value)
-
-                // Simulated API call
-                await new Promise(resolve => setTimeout(resolve, 1500))
-
-                // Success
-                emit('register-success', registerForm.value)
-                closeModal()
-            } catch (error) {
-                console.error('Registration failed:', error)
-                // Error handling burada yapılacak
-            } finally {
-                loading.value = false
+        const handleRegister = () => {
+            // Form verilerini hazırla
+            const formData = {
+                name: registerForm.value.firstName,
+                surname: registerForm.value.lastName,
+                username: registerForm.value.username,
+                email: registerForm.value.email,
+                password: registerForm.value.password,
+                password_confirmation: registerForm.value.confirmPassword,
+                currency: registerForm.value.currency,
+                telefon: registerForm.value.phone,
+                postakodu: registerForm.value.postalCode,
+                ulke: 'Türkiye',
+                il: registerForm.value.city,
+                ilce: registerForm.value.district,
+                dt: formatDateForServer(registerForm.value.birthDate),
+                tc: registerForm.value.tcNo,
+                acceptTerms: registerForm.value.acceptTerms,
+                acceptMarketing: registerForm.value.acceptMarketing
             }
+
+            // Yeni bir form instance'ı oluştur
+            const form = useForm(formData)
+
+            isSubmitting.value = true
+
+            form.post(route('user.register'), {
+                onSuccess: () => {
+                    // Register başarılı olduğunda modal'ı kapat
+                    emit('register-success', registerForm.value)
+                    closeModal()
+                },
+                onError: (errors) => {
+                    console.error('Register errors:', errors)
+                },
+                onFinish: () => {
+                    // Form işlemi tamamlandığında
+                    isSubmitting.value = false
+                },
+            })
+        }
+
+        const formatDateForServer = (dateStr: string) => {
+            // DD/MM/YYYY formatını YYYY-MM-DD formatına çevir
+            if (!dateStr || dateStr.length !== 10) return ''
+            const parts = dateStr.split('/')
+            if (parts.length !== 3) return ''
+            return `${parts[2]}-${parts[1]}-${parts[0]}`
         }
 
         const switchToLogin = () => {
@@ -403,7 +434,7 @@ export default defineComponent({
             currentStep,
             showPassword,
             showConfirmPassword,
-            loading,
+            isSubmitting,
             currencyOptions,
             cityOptions,
             districtOptions,

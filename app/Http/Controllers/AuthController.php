@@ -112,7 +112,9 @@ class AuthController extends Controller
 
         // TC Kimlik doğrulama
         if (!$this->mernisTCKimlikDogrula($request->tc, $request->name, $request->surname, $dogumYili)) {
-            return response()->json(['status' => false, 'message' => 'TC Kimlik doğrulaması başarısız. Bilgilerinizi kontrol ediniz.'], 422);
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'tc' => 'TC Kimlik doğrulaması başarısız. Bilgilerinizi kontrol ediniz.'
+            ]);
         }
 
         $admin = Admin::create([
@@ -147,11 +149,8 @@ class AuthController extends Controller
 
         session(['admin_id' => $admin->id, 'admin' => $admin]);
 
-        if ($request->has('modal')) {
-            return response('<script>window.parent.location.reload();</script>');
-        }
-
-        return redirect('/');
+        // Inertia için redirect response
+        return redirect()->intended('/');
     }
 
     public function userLogout(Request $request)
