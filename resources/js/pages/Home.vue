@@ -126,7 +126,8 @@ export default defineComponent({
     background-attachment: fixed;
 
     min-height: 100vh;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
+    /* Alt padding kaldırıldı footer için */
 }
 
 
@@ -137,6 +138,7 @@ export default defineComponent({
     object-fit: cover;
     border-radius: 12px;
 }
+
 .ligobet-games-section {
     margin-bottom: 40px;
     padding-top: 16px

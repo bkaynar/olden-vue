@@ -6,7 +6,9 @@
     <q-page-container>
       <q-page class="main-content">
         <slot />
+        <AppFooter />
       </q-page>
+
     </q-page-container>
 
     <!-- Mobile Bottom Navigation -->
@@ -20,6 +22,7 @@ import { useQuasar } from 'quasar'
 import AppHeader from '../components/Header.vue'
 import AppSidebar from '../components/Sidebar.vue'
 import BottomNavigation from '../components/BottomNavigation.vue'
+import AppFooter from '../components/Footer.vue'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -27,7 +30,8 @@ export default defineComponent({
   components: {
     AppHeader,
     AppSidebar,
-    BottomNavigation
+    BottomNavigation,
+    AppFooter,
   },
 
   setup() {
