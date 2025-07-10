@@ -48,9 +48,10 @@ export default defineComponent({
 
 <style scoped>
 .main-content {
-  background: #1a1a1a;
-  min-height: calc(100vh - 60px);
-  padding: 0;
+    background: #1a1a1a url('/images/bg.png') no-repeat center center;
+    background-size: cover;
+    min-height: calc(100vh - 60px);
+    padding: 0;
 }
 
 /* Layout adjustments */
