@@ -2,89 +2,24 @@
     <div class="home-page">
         <!-- Hero Carousel -->
         <HeroCarousel :carousel-items="carouselItems" @join-now="joinNow" />
-
-        <!-- En Çok Kazananlar Section -->
-        <div class="winners-section">
-            <div class="section-header">
-                <div class="section-title">
-                    <q-icon name="emoji_events" color="green" size="md" />
-                    <span>En Çok Kazananlar</span>
-                </div>
-                <div class="section-tabs">
-                    <q-btn v-for="tab in winnerTabs" :key="tab.key" :label="tab.label"
-                        :class="['tab-btn', { active: activeTab === tab.key }]" flat no-caps
-                        @click="activeTab = tab.key" />
-                </div>
-            </div>
-
-            <div class="winners-grid">
-                <div v-for="game in games" :key="game.id" class="game-card" @click="playGame(game)">
-                    <div class="game-image">
-                        <img :src="game.image" :alt="game.name" />
-                        <div class="game-overlay">
-                            <q-icon name="play_arrow" size="xl" color="white" />
-                        </div>
-                    </div>
-                    <div class="game-info">
-                        <div class="game-provider">
-                            <q-icon :name="game.providerIcon" size="sm" />
-                            <span>{{ game.provider }}</span>
-                        </div>
-                        <h3 class="game-name">{{ game.name }}</h3>
-                        <div class="game-amount">₺ {{ game.amount }}</div>
-                    </div>
-                </div>
+        <div class="section-header">
+            <div class="section-title">
+                <q-icon name="people" color="green" size="md" />
+                <span>Son Kazananlar</span>
             </div>
         </div>
+        <TopWinners :last-winners="lastWinners" />
 
-        <!-- Davet Et & Kazan Section -->
-        <div class="invite-section">
-            <div class="section-header">
-                <div class="section-title">
-                    <q-icon name="people" color="green" size="md" />
-                    <span>Davet Et & Kazan</span>
-                </div>
-            </div>
 
-            <div class="invite-rewards">
-                <div class="reward-item">
-                    <div class="reward-status live">
-                        <q-icon name="fiber_manual_record" size="xs" />
-                        <span>Canlı Ödüller</span>
-                    </div>
-                    <div class="reward-info">
-                        <div class="reward-user">
-                            <q-avatar size="sm">
-                                <img src="https://cdn.quasar.dev/img/avatar.png" />
-                            </q-avatar>
-                            <span class="username">cu***ba</span>
-                        </div>
-                        <div class="reward-amount">₺ 250.00</div>
-                    </div>
-                </div>
-
-                <div v-for="reward in inviteRewards" :key="reward.id" class="reward-item">
-                    <div class="reward-info">
-                        <div class="reward-user">
-                            <q-avatar size="sm">
-                                <img src="https://cdn.quasar.dev/img/avatar.png" />
-                            </q-avatar>
-                            <span class="username">{{ reward.username }}</span>
-                        </div>
-                        <div class="reward-amount">₺ {{ reward.amount }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Baywin Oyunlar Section -->
-        <div class="baywin-games-section">
+        <!-- Ligobet Oyunlar Section -->
+        <div class="ligobet-games-section">
             <div class="section-header">
                 <div class="section-title">
                     <q-icon name="casino" color="green" size="md" />
-                    <span>Baywin Oyunlar</span>
+                    <span>Ligobet Oyunlar</span>
                 </div>
             </div>
+            <Games :games="games" />
         </div>
     </div>
 </template>
@@ -93,20 +28,25 @@
 import { defineComponent, ref } from 'vue'
 import MainLayout from '../layouts/MainLayout.vue'
 import HeroCarousel from '../components/HeroCarousel.vue'
+import TopWinners from '../components/TopWinners.vue'
+import Games from '../components/Games.vue'
 
 export default defineComponent({
     name: 'HomePage',
     layout: MainLayout,
-    components: { HeroCarousel },
+    components: { HeroCarousel, TopWinners, Games },
     props: {
         carouselItems: {
             type: Array,
             required: true
+        },
+        lastWinners: {
+            type: Array,
+            required: true
         }
     },
-    setup() {
+    setup(props) {
         const activeTab = ref('casino')
-
         const winnerTabs = ref([
             { key: 'casino', label: 'Casino' },
             { key: 'originals', label: 'Baywin Originals' },
@@ -114,58 +54,7 @@ export default defineComponent({
             { key: 'games', label: 'Oyunlar' },
             { key: 'sports', label: 'Sports' }
         ])
-
-        const games = ref([
-            {
-                id: 1,
-                name: 'Zeus vs Hades - Gods of War',
-                provider: 'Pragmatic Play',
-                providerIcon: 'casino',
-                amount: '105,000.00',
-                image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=200&fit=crop'
-            },
-            {
-                id: 2,
-                name: 'Big Bass Bonanza 10...',
-                provider: 'Pragmatic Play',
-                providerIcon: 'casino',
-                amount: '102,920.00',
-                image: 'https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=300&h=200&fit=crop'
-            },
-            {
-                id: 3,
-                name: 'Big Bass Bonanza 10...',
-                provider: 'Pragmatic Play',
-                providerIcon: 'casino',
-                amount: '102,735.00',
-                image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=200&fit=crop'
-            },
-            {
-                id: 4,
-                name: '40 Burning Hot & Reels',
-                provider: 'EGT Digital',
-                providerIcon: 'casino',
-                amount: '100,000.00',
-                image: 'https://images.unsplash.com/photo-1606005284391-e4dc1220f3d7?w=300&h=200&fit=crop'
-            },
-            {
-                id: 5,
-                name: 'Royal Joker: Hold and...',
-                provider: 'Playson',
-                providerIcon: 'casino',
-                amount: '98,400.00',
-                image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=300&h=200&fit=crop'
-            },
-            {
-                id: 6,
-                name: 'Gates of Olympus',
-                provider: 'Pragmatic Play',
-                providerIcon: 'casino',
-                amount: '96,760.00',
-                image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=200&fit=crop'
-            }
-        ])
-
+        const games = ref([])
         const inviteRewards = ref([
             { id: 1, username: 'or***07', amount: '250.00' },
             { id: 2, username: 'bi***ka', amount: '250.00' },
@@ -175,16 +64,12 @@ export default defineComponent({
             { id: 6, username: 'Al***42', amount: '250.00' },
             { id: 7, username: 'Az***90', amount: '250.00' }
         ])
-
         const joinNow = () => {
             console.log('Join now clicked')
         }
-
-        const playGame = () => {
-
-        }
-
+        const playGame = () => { }
         return {
+            ...props, // include carouselItems and lastWinners
             activeTab,
             winnerTabs,
             games,
@@ -198,7 +83,7 @@ export default defineComponent({
 
 <style scoped>
 .home-page {
-    background: #1a1a1a;
+    background: #14171f;
     min-height: 100vh;
     padding: 20px;
 }
@@ -333,8 +218,9 @@ export default defineComponent({
 /* Section Styles */
 .winners-section,
 .invite-section,
-.baywin-games-section {
+.ligobet-games-section {
     margin-bottom: 40px;
+    padding-top: 16px
 }
 
 .section-header {

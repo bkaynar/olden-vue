@@ -42,4 +42,9 @@ class Game extends Model
     ];
 
     protected $dates = ['created_at', 'updated_at'];
+
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class, 'provider_id');
+    }
 }

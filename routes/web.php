@@ -4,15 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Models\Slider;
+use App\Models\Transaction;
 
-Route::get('/home', function () {
-    // Slider verilerini çek
-    $sliders = Slider::orderBy('sira')->get(['gorsel', 'url', 'sira']);
-    
-    return Inertia::render('Home', [
-        'carouselItems' => $sliders
-    ]);
-})->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');

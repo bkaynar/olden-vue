@@ -20,4 +20,15 @@ class Transaction extends Model
     ];
 
     protected $dates = ['created_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(Admin::class, 'user_id');
+    }
+
+    public function game()
+    {
+        // Transaction.gameid -> Game.game_id
+        return $this->belongsTo(Game::class, 'gameid', 'game_id');
+    }
 }
