@@ -165,3 +165,36 @@
         @apply bg-background text-foreground;
     }
 }
+
+/* Global mobile fixes */
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    background: #1a1a1a;
+}
+
+#app {
+    height: 100vh;
+    overflow: hidden;
+    background: #1a1a1a;
+}
+
+/* Mobile specific fixes */
+@media (max-width: 767px) {
+    html {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: #1a1a1a;
+    }
+
+    body {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: #1a1a1a;
+    }
+}

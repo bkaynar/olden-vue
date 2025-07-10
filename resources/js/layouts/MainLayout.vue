@@ -6,9 +6,8 @@
     <q-page-container>
       <q-page class="main-content">
         <slot />
-        <AppFooter />
       </q-page>
-
+      <AppFooter />
     </q-page-container>
 
     <!-- Mobile Bottom Navigation -->
@@ -54,21 +53,41 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/* Global scroll sıfırlama */
+:deep(html, body) {
+  overflow: visible !important;
+  height: auto !important;
+}
+
 .main-content {
   background: #1a1a1a url('/images/bg.png') no-repeat center center;
   background-size: cover;
+  background-attachment: fixed;
   min-height: calc(100vh - 60px);
-  padding: 0;
+  padding: 0px;
+  overflow-y: visible;
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+  /* Yatay değil, dikey büyümeyi esnek yap */
+
+  overflow-y: auto;
+  /* İçerik taşarsa scroll bar çıksın */
 }
 
 /* Layout adjustments */
 :deep(.q-layout) {
   background: #1a1a1a;
+  min-height: 100vh;
 }
 
 :deep(.q-page-container) {
   padding-top: 60px;
   padding-left: 280px;
+  overflow-y: auto;
+  height: 100vh;
+  /* Bütünüyle viewport’u kapla */
 }
 
 /* Mobile adjustments */
@@ -81,7 +100,7 @@ export default defineComponent({
 
   .main-content {
     min-height: calc(100vh - 60px - 80px);
-    /* Header ve bottom nav için */
+    padding: 15px;
   }
 }
 

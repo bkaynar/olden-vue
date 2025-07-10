@@ -91,11 +91,12 @@ export default defineComponent({
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 2000;
+    z-index: 2001;
     background: #20242e;
     border-top: 1px solid #333;
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.3);
-    padding-bottom: env(safe-area-inset-bottom);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .nav-items {
