@@ -446,39 +446,61 @@ export default defineComponent({
     }
 
     .section-header {
-        flex-direction: column;
-        gap: 16px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .section-title {
+        font-size: 18px;
+        gap: 8px;
+    }
+
+    .section-title span {
+        font-size: 16px;
+    }
+
+    .view-all-btn {
+        min-width: 100px;
+        font-size: 12px;
+        height: 32px;
+        padding: 4px 8px !important;
+    }
+
+    .view-all-btn .q-btn__content {
+        gap: 4px;
     }
 }
 
 .view-all-btn {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #e0e0e0;
-  transition: all 0.3s ease;
-  min-width: 160px;
-  right: 20px;
-  height: 40px;
-  /* Sabit yükseklik ekledik */
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 8px 16px !important;
-  /* Padding'i tamamen sıfırlamak yerine uygun değer verdik */
-  text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    right: 20px;
+    height: 40px;
+    /* Sabit yükseklik ekledik */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 16px !important;
+    /* Padding'i tamamen sıfırlamak yerine uygun değer verdik */
+    text-align: center;
 }
 
 .view-all-btn .q-btn__content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  /* İkon ve metin arasında boşluk */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    /* İkon ve metin arasında boşluk */
 }
 
 .view-all-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateX(4px);
-}   
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+}
 </style>

@@ -2,17 +2,23 @@
   <div class="q-pa-md rounded-borders">
     <!-- tabs + sağda tümünü gör butonu -->
     <div class="row items-center justify-between q-mb-lg">
-      <div class="row q-gutter-sm">
+      <!-- Kategorileri sadece desktop'ta göster -->
+      <div v-if="!isMobile" class="row q-gutter-sm">
         <q-btn v-for="c in categories" :key="c.key" rounded :flat="activeTab !== c.key"
           :color="activeTab === c.key ? 'primary' : 'grey-7'" :text-color="activeTab === c.key ? 'white' : 'grey-4'"
           :label="c.label" @click="activeTab = c.key" class="modern-tab-btn"
           :class="{ 'active-tab': activeTab === c.key }" />
       </div>
-      <q-btn flat rounded dense class="view-all-btn" label="Tümünü Gör" icon-right="arrow_forward" />
+      <!-- Mobilde boş div -->
+      <div v-else></div>
+
+      <!-- Tümünü Gör butonunu sadece desktop'ta göster -->
+      <q-btn v-if="!isMobile" flat rounded dense class="view-all-btn" label="Tümünü Gör" icon-right="arrow_forward" />
     </div>
 
-    <!-- grid list, sadece 6 oyun -->
-    <div class="row q-gutter-lg justify-start">
+    <!-- Desktop: grid list, Mobile: carousel -->
+    <!-- Desktop grid -->
+    <div v-if="!isMobile" class="row q-gutter-lg justify-start">
       <template v-if="filteredGames.length > 0">
         <div v-for="(game, idx) in filteredGames.slice(0, 6)" :key="idx"
           class="modern-game-card relative flex items-center justify-center overflow-hidden group"
@@ -29,7 +35,9 @@
           <q-btn class="modern-play-btn absolute" color="primary" text-color="white" size="sm" no-caps
             :class="{ 'show': hovered === idx }">
             <!-- Sol tarafa icon -->
-            <q-icon name="play_arrow" slot="prepend" />
+            <template #prepend>
+              <q-icon name="play_arrow" />
+            </template>
             <!-- Yanına metin -->
             Oyna
           </q-btn>
@@ -47,12 +55,80 @@
         <div class="text-grey-4 q-pa-md">Oyun bulunamadı.</div>
       </template>
     </div>
+
+    <!-- Mobile carousel -->
+    <div v-else>
+      <template v-if="filteredGames.length > 0">
+        <!-- Swiper carousel -->
+        <div class="swiper-container">
+          <swiper
+            :modules="modules"
+            :slides-per-view="'auto'"
+            :centered-slides="true"
+            :space-between="20"
+            :initial-slide="0"
+            :loop="true"
+            :navigation="{
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            }"
+            class="games-swiper"
+            @swiper="onSwiper"
+            @slide-change="onSlideChange"
+          >
+            <swiper-slide v-for="(game, idx) in filteredGames.slice(0, 6)" :key="idx" class="game-slide">
+              <div class="modern-game-card-mobile relative flex items-center justify-center overflow-hidden"
+                :class="{ 'active-card': activeSlideIndex === idx, 'side-card': activeSlideIndex !== idx }">
+                <!-- Background gradient -->
+                <div class="card-gradient"></div>
+
+                <!-- Oyun görseli (cover) -->
+                <img v-if="game.cover" :src="game.cover" alt="Game Cover" class="game-cover-img" />
+                <!-- Placeholder icon, cover yoksa -->
+                <q-icon v-else name="mdi-gamepad-variant" size="48px" color="grey-5" class="game-icon" />
+
+                <!-- Play button - sadece aktif card'da göster -->
+                <q-btn v-if="activeSlideIndex === idx" class="modern-play-btn absolute show" color="primary"
+                  text-color="white" size="sm" no-caps>
+                  <!-- Sol tarafa icon -->
+                  <template #prepend>
+                    <q-icon name="play_arrow" />
+                  </template>
+                  <!-- Yanına metin -->
+                  Oyna
+                </q-btn>
+
+                <!-- Game info overlay - sadece aktif card'da göster -->
+                <div v-if="activeSlideIndex === idx" class="game-info absolute bottom-0 left-0 right-0 p-2 show">
+                  <div class="text-white text-weight-medium text-caption">{{ game.name }}</div>
+                  <div class="text-grey-4 text-caption">{{ game.provider }}</div>
+                </div>
+              </div>
+            </swiper-slide>
+          </swiper>
+
+          <!-- Custom Navigation Buttons -->
+          <div class="swiper-button-prev custom-nav-btn"></div>
+          <div class="swiper-button-next custom-nav-btn"></div>
+        </div>
+      </template>
+      <template v-else>
+        <div class="text-grey-4 q-pa-md text-center">Oyun bulunamadı.</div>
+      </template>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineProps, watch } from 'vue'
+import { ref, computed, defineProps, watch, onMounted, onUnmounted } from 'vue'
 import { QIcon, QBtn } from 'quasar'
+// Swiper imports
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/effect-coverflow'
 
 interface Game {
   name: string
@@ -67,18 +143,50 @@ interface Game {
 const props = defineProps<{ games?: Game[] }>()
 
 const hovered = ref<number | null>(null)
+const activeSlideIndex = ref(0) // Aktif slide index'i
+const isMobile = ref(false)
+
+// Swiper modules
+const modules = [Navigation, Pagination, EffectCoverflow]
+
+// Swiper instance referansı
+const swiperInstance = ref<any>(null)
+
+// Swiper event handlers
+const onSwiper = (swiper: any) => {
+  swiperInstance.value = swiper
+}
+
+const onSlideChange = (swiper: any) => {
+  activeSlideIndex.value = swiper.realIndex
+}
+
+// Ekran boyutunu kontrol et
+const checkScreenSize = () => {
+  isMobile.value = window.innerWidth <= 768
+}
+
+// Component mount olunca ve resize olunca kontrol et
+onMounted(() => {
+  checkScreenSize()
+  window.addEventListener('resize', checkScreenSize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkScreenSize)
+})
 
 // Eğer dışarıdan prop gelmiyorsa örnek veri kullan
 const fallbackGames: Game[] = [
-  { name: 'Gates of Olympus', provider: 'Pragmatic Play', isNew: true, highRtp: true, popular: true, category: 'Popüler' },
-  { name: 'Sweet Bonanza', provider: 'Pragmatic Play', isNew: false, highRtp: true, popular: true, category: 'Popüler' },
-  { name: 'Wolf Gold', provider: 'Pragmatic Play', isNew: false, highRtp: false, popular: true, category: 'Popüler' },
-  { name: 'Aztec Gems', provider: 'Pragmatic Play', isNew: true, highRtp: false, popular: true, category: 'Popüler' },
-  { name: 'Lucky Lady\'s Charm', provider: 'Novomatic', isNew: false, highRtp: false, popular: true, category: 'Popüler' },
-  { name: 'Book of Ra', provider: 'Novomatic', isNew: false, highRtp: false, popular: true, category: 'planor' },
-  { name: 'Starburst', provider: 'NetEnt', isNew: false, highRtp: false, popular: true, category: 'planor' },
-  { name: 'Mega Moolah', provider: 'Microgaming', isNew: false, highRtp: true, popular: true, category: 'planor' },
-  { name: 'Mega Moolah', provider: 'Microgaming', isNew: false, highRtp: true, popular: true, category: 'planor' },
+  { name: 'Gates of Olympus', provider: 'Pragmatic Play', isNew: true, highRtp: true, popular: true, category: 'Popüler', cover: 'https://picsum.photos/200/200?random=1' },
+  { name: 'Sweet Bonanza', provider: 'Pragmatic Play', isNew: false, highRtp: true, popular: true, category: 'Popüler', cover: 'https://picsum.photos/200/200?random=2' },
+  { name: 'Wolf Gold', provider: 'Pragmatic Play', isNew: false, highRtp: false, popular: true, category: 'Popüler', cover: 'https://picsum.photos/200/200?random=3' },
+  { name: 'Aztec Gems', provider: 'Pragmatic Play', isNew: true, highRtp: false, popular: true, category: 'Popüler', cover: 'https://picsum.photos/200/200?random=4' },
+  { name: 'Lucky Lady\'s Charm', provider: 'Novomatic', isNew: false, highRtp: false, popular: true, category: 'Popüler', cover: 'https://picsum.photos/200/200?random=5' },
+  { name: 'Book of Ra', provider: 'Novomatic', isNew: false, highRtp: false, popular: true, category: 'planor', cover: 'https://picsum.photos/200/200?random=6' },
+  { name: 'Starburst', provider: 'NetEnt', isNew: false, highRtp: false, popular: true, category: 'planor', cover: 'https://picsum.photos/200/200?random=7' },
+  { name: 'Mega Moolah', provider: 'Microgaming', isNew: false, highRtp: true, popular: true, category: 'planor', cover: 'https://picsum.photos/200/200?random=8' },
+  { name: 'John Hunter', provider: 'Pragmatic Play', isNew: false, highRtp: true, popular: true, category: 'planor', cover: 'https://picsum.photos/200/200?random=9' },
 ]
 
 // Dinamik kategoriler
@@ -256,21 +364,116 @@ const filteredGames = computed(() => {
   z-index: 1;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .modern-game-card {
-    width: 140px;
-    height: 140px;
-  }
+/* Swiper Carousel Styles */
+.swiper-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .modern-play-btn {
-    min-width: 75px;
-    /* Biraz daha geniş */
-    height: 28px;
-    /* Biraz daha düşük */
-    font-size: 12px;
-    border-radius: 4px;
-    /* Daha az yuvarlatılmış */
-  }
+.games-swiper {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  padding: 0 80px;
+  /* Sağ sol padding ekleyip merkezleme */
+}
+
+.swiper-wrapper {
+  align-items: center;
+}
+
+.game-slide {
+  width: 100% !important;
+  max-width: 240px;
+  margin: auto;
+}
+
+/* Swiper slide efektleri */
+.swiper-slide:not(.swiper-slide-active) {
+  opacity: 0.6;
+  transform: scale(0.8);
+  filter: grayscale(0.3);
+}
+
+.swiper-slide.swiper-slide-active {
+  opacity: 1;
+  transform: scale(1);
+  filter: grayscale(0);
+  z-index: 3;
+}
+
+.modern-game-card-mobile {
+  width: 160px;
+  height: 160px;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/* Aktif card için ek efektler */
+.modern-game-card-mobile.active-card {
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+  border-color: rgba(102, 126, 234, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Yan taraftaki cardlar */
+.modern-game-card-mobile.side-card {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.modern-game-card-mobile:active {
+  transform: scale(0.95);
+}
+
+/* Swiper Navigation Buttons */
+.custom-nav-btn {
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.custom-nav-btn:after {
+  font-size: 16px;
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+.custom-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+  border-color: rgba(102, 126, 234, 0.4);
+}
+
+.custom-nav-btn.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.swiper-button-prev.custom-nav-btn {
+  left: 20px;
+}
+
+.swiper-button-next.custom-nav-btn {
+  right: 20px;
 }
 </style>
