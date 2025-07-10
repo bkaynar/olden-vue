@@ -117,7 +117,7 @@ const selectOdd = (odd: Odd, index: number) => {
   max-width: 320px;
   min-width: 220px;
   height: 260px;
-  background: linear-gradient(135deg, #1a232b 0%, #232a32 100%);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   color: white;
@@ -141,7 +141,7 @@ const selectOdd = (odd: Odd, index: number) => {
 /* Header */
 .match-header {
   height: 40px;
-  background: #232a32;
+  background: rgba(255, 255, 255, 0.01);
   padding: 0 12px;
   display: flex;
   align-items: center;
@@ -250,7 +250,7 @@ const selectOdd = (odd: Odd, index: number) => {
 /* Odds Section */
 .odds-section {
   padding: 16px 12px;
-  background: #232a32;
+  background: rgba(255, 255, 255, 0.002);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
   gap: 8px;

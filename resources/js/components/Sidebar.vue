@@ -1,5 +1,5 @@
 <template>
-  <q-drawer v-model="drawer" show-if-above :width="280" class="bg-dark" side="left" bordered>
+  <q-drawer v-model="drawer" show-if-above :width="280" class="bg-dark" side="left" bordered :breakpoint="1024" overlay>
     <div class="sidebar-content">
       <!-- Logo (Sticky) -->
       <div class="sidebar-logo sticky-logo">
@@ -42,16 +42,27 @@
   </q-drawer>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useQuasar } from 'quasar'
+
+interface MenuItem {
+  name: string
+  label: string
+  icon: string
+  active: boolean
+}
 
 export default defineComponent({
   name: 'AppSidebar',
 
   setup() {
-    const drawer = ref(true)
+    const $q = useQuasar()
 
-    const menuItems = ref([
+    // Mobilde başlangıçta kapalı, desktop'ta açık
+    const drawer = ref($q.screen.gt.md)
+
+    const menuItems = ref<MenuItem[]>([
       {
         name: 'home',
         label: 'Ana Sayfa',
@@ -120,16 +131,21 @@ export default defineComponent({
       }
     ])
 
-    const selectMenuItem = (item) => {
+    const selectMenuItem = (item: MenuItem) => {
       menuItems.value.forEach(menuItem => {
         menuItem.active = menuItem.name === item.name
       })
     }
 
+    const toggleDrawer = () => {
+      drawer.value = !drawer.value
+    }
+
     return {
       drawer,
       menuItems,
-      selectMenuItem
+      selectMenuItem,
+      toggleDrawer
     }
   }
 })
@@ -192,9 +208,9 @@ export default defineComponent({
 }
 
 .menu-item {
-  margin: 4px 12px;
+  margin: 2px 4px;
   border-radius: 12px;
-  padding: 6px 16px 6px 8px;
+  padding: 3px 16px 3px 8px;
   transition: all 0.3s cubic-bezier(.4, 2, .3, 1);
   background: transparent;
   display: flex;
@@ -214,7 +230,8 @@ export default defineComponent({
 }
 
 .menu-label {
-  font-weight: 500;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
   color: #ccc;
   font-size: 15px;
   letter-spacing: 0.2px;
@@ -222,7 +239,7 @@ export default defineComponent({
 
 .menu-label.active {
   color: #1a1a1a;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .icon-bubble {

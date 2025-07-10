@@ -5,7 +5,6 @@
       <div class="auth-actions row items-center q-gutter-sm">
         <q-btn flat no-caps label="GİRİŞ" class="nav-btn" @click="showLogin" />
         <q-btn unelevated no-caps label="Kayıt Ol" class="register-btn" color="green" @click="showRegister" />
-        <q-btn flat round icon="chat" class="chat-btn" @click="openChat" />
       </div>
     </q-toolbar>
   </q-header>
@@ -76,5 +75,27 @@ export default defineComponent({
   min-height: 80px;
   background: #20242e;
   border-bottom: 1px solid #333;
+}
+
+/* Mobile adjustments */
+@media (max-width: 1023px) {
+  .q-toolbar {
+    min-height: 60px;
+    padding: 0 16px;
+  }
+
+  .auth-actions {
+    margin-right: 0;
+  }
+
+  .nav-btn,
+  .register-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .register-btn {
+    padding: 6px 16px;
+  }
 }
 </style>
