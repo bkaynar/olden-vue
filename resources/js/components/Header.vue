@@ -3,27 +3,54 @@
     <q-toolbar class="q-px-lg">
       <q-space />
       <div class="auth-actions row items-center q-gutter-sm">
-        <q-btn flat no-caps label="GİRİŞ" class="nav-btn" @click="showLogin" />
-        <q-btn unelevated no-caps label="Kayıt Ol" class="register-btn" color="green" @click="showRegister" />
+        <q-btn flat no-caps label="GİRİŞ" class="nav-btn" @click="openLoginModal" />
+        <q-btn unelevated no-caps label="Kayıt Ol" class="register-btn" color="green" @click="openRegisterModal" />
       </div>
     </q-toolbar>
+
+    <!-- Auth Modals -->
+    <LoginModal v-model="showLoginModal" @switch-to-register="switchToRegister" @login-success="handleLoginSuccess" />
+
+    <RegisterModal v-model="showRegisterModal" @switch-to-login="switchToLogin"
+      @register-success="handleRegisterSuccess" />
   </q-header>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import LoginModal from './LoginModal.vue'
+import RegisterModal from './RegisterModal.vue'
+import { useAuthModals } from '../composables/useAuthModals'
 
 export default defineComponent({
   name: 'AppHeader',
-  methods: {
-    showLogin() {
-      console.log('Login clicked')
-    },
-    showRegister() {
-      console.log('Register clicked')
-    },
-    openChat() {
-      console.log('Chat clicked')
+
+  components: {
+    LoginModal,
+    RegisterModal
+  },
+
+  setup() {
+    const {
+      showLoginModal,
+      showRegisterModal,
+      openLoginModal,
+      openRegisterModal,
+      switchToRegister,
+      switchToLogin,
+      handleLoginSuccess,
+      handleRegisterSuccess
+    } = useAuthModals()
+
+    return {
+      showLoginModal,
+      showRegisterModal,
+      openLoginModal,
+      openRegisterModal,
+      switchToRegister,
+      switchToLogin,
+      handleLoginSuccess,
+      handleRegisterSuccess
     }
   }
 })
