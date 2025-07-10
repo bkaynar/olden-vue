@@ -60,7 +60,7 @@ class HomeController extends Controller
             });
 
         // Oyunlar için Eloquent ile sorgu
-        $excludedList = [73,72,55,56,54,29,30,31,32,33,7,8,9,3,58,90,102,69,95,83,63,76,28,67,68,91,5];
+        $excludedList = [73, 72, 55, 56, 54, 29, 30, 31, 32, 33, 7, 8, 9, 3, 58, 90, 102, 69, 95, 83, 63, 76, 28, 67, 68, 91, 5];
         $allGames = \App\Models\Game::with('provider')
             ->whereNotIn('provider_id', $excludedList)
             ->orderBy('game_name', 'asc')
@@ -80,6 +80,7 @@ class HomeController extends Controller
                     'eniyi' => $game->eniyi,
                     'megaways' => $game->megaways,
                     'provider_name' => $game->provider ? $game->provider->name : null,
+                    'category' => $game->game_type ? ucfirst($game->game_type) : 'Diğer',
                 ];
             });
 

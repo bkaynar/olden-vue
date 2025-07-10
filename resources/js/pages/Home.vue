@@ -43,9 +43,15 @@ export default defineComponent({
         lastWinners: {
             type: Array,
             required: true
+        },
+        allGames: {
+            type: Array,
+            required: false,
+            default: () => []
         }
     },
     setup(props) {
+        console.log('allGames backendden:', props.allGames)
         const activeTab = ref('casino')
         const winnerTabs = ref([
             { key: 'casino', label: 'Casino' },
@@ -54,7 +60,7 @@ export default defineComponent({
             { key: 'games', label: 'Oyunlar' },
             { key: 'sports', label: 'Sports' }
         ])
-        const games = ref([])
+        const games = ref(props.allGames)
         const inviteRewards = ref([
             { id: 1, username: 'or***07', amount: '250.00' },
             { id: 2, username: 'bi***ka', amount: '250.00' },
@@ -69,7 +75,7 @@ export default defineComponent({
         }
         const playGame = () => { }
         return {
-            ...props, // include carouselItems and lastWinners
+            ...props,
             activeTab,
             winnerTabs,
             games,

@@ -20,8 +20,10 @@
           <!-- Background gradient -->
           <div class="card-gradient"></div>
 
-          <!-- Placeholder icon -->
-          <q-icon name="mdi-gamepad-variant" size="48px" color="grey-5" class="game-icon" />
+          <!-- Oyun görseli (cover) -->
+          <img v-if="game.cover" :src="game.cover" alt="Game Cover" class="game-cover-img" />
+          <!-- Placeholder icon, cover yoksa -->
+          <q-icon v-else name="mdi-gamepad-variant" size="48px" color="grey-5" class="game-icon" />
 
           <!-- Play button -->
           <q-btn class="modern-play-btn absolute" color="primary" text-color="white" size="sm" no-caps
@@ -49,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineProps } from 'vue'
+import { ref, computed, defineProps, watch } from 'vue'
 import { QIcon, QBtn } from 'quasar'
 
 interface Game {
@@ -59,6 +61,7 @@ interface Game {
   isNew?: boolean
   highRtp?: boolean
   popular?: boolean
+  cover?: string // cover alanı eklendi
 }
 
 const props = defineProps<{ games?: Game[] }>()
@@ -79,26 +82,25 @@ const fallbackGames: Game[] = [
 
 ]
 
-const categories = [
-  { key: 'all', label: 'Tümü' },
-  { key: 'popular', label: 'Popüler' },
-  { key: 'planor', label: 'Planör' },
-]
+// Dinamik kategoriler
+const categories = computed(() => {
+  const list = props.games && props.games.length > 0 ? props.games : fallbackGames
+  const unique = Array.from(new Set(list.map(g => g.category).filter(Boolean)))
+  const cats = unique.map(key => ({ key, label: key ? key.charAt(0).toUpperCase() + key.slice(1) : 'Diğer' }))
+  return [{ key: 'all', label: 'Tümü' }, ...cats]
+})
 
 const activeTab = ref('all')
 
+// Kategori değişirse ilk kategoriye setle
+watch(categories, (newVal) => {
+  if (newVal.length > 0) activeTab.value = newVal[0].key
+})
+
 const filteredGames = computed(() => {
   const list = props.games && props.games.length > 0 ? props.games : fallbackGames
-  switch (activeTab.value) {
-    case 'all':
-      return list
-    case 'popular':
-      return list.filter(g => g.popular)
-    case 'planor':
-      return list.filter(g => g.category === 'planor')
-    default:
-      return list.filter(g => g.category === 'baywin')
-  }
+  if (!activeTab.value || activeTab.value === 'all') return list
+  return list.filter(g => g.category === activeTab.value)
 })
 </script>
 
@@ -243,6 +245,16 @@ const filteredGames = computed(() => {
 
 .game-info.show {
   transform: translateY(0);
+}
+
+.game-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 /* Responsive design */
