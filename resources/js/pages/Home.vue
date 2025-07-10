@@ -121,12 +121,11 @@ export default defineComponent({
 
 <style scoped>
 .home-page {
-    background: #14171f url('/images/bg-1.png') no-repeat center center;
+    background:  url('/images/bg-1.png') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
-
     min-height: 100vh;
-    padding: 20px 20px 0 20px;
+    padding: 20px 20px 20px 20px;
     /* Alt padding kaldırıldı footer için */
 }
 

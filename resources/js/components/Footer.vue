@@ -107,7 +107,7 @@ export default defineComponent({
 
 /* Sosyal Medya Bölümü */
 .social-section {
-    padding: 40px 0;
+    padding: 20px 0;
     background: linear-gradient(135deg, #1a1d25 0%, #20242e 100%);
 }
 

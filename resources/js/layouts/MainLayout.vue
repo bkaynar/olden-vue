@@ -60,20 +60,27 @@ export default defineComponent({
 }
 
 .main-content {
-  background: #1a1a1a url('/images/bg.png') no-repeat center center;
+  background: url('images/bg.png') no-repeat center center;
   background-size: cover;
-  background-attachment: fixed;
   min-height: calc(100vh - 60px);
-  padding: 0px;
   overflow-y: visible;
   display: flex;
   flex-direction: column;
-
   flex: 1;
-  /* Yatay değil, dikey büyümeyi esnek yap */
-
   overflow-y: auto;
-  /* İçerik taşarsa scroll bar çıksın */
+  position: relative;
+}
+
+.main-content::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/public/images/bg.png') no-repeat center center;
+  background-size: cover;
+  z-index: -1;
 }
 
 /* Layout adjustments */
