@@ -49,11 +49,11 @@ Route::middleware('guest')->group(function () {
         ->name('password.store');
 });
 
-Route::middleware('auth')->group(function () {
-    // Özel logout route
-    Route::post('user/logout', [AuthController::class, 'userLogout'])
-        ->name('user.logout');
+// Logout route - auth middleware olmadan
+Route::post('user/logout', [AuthController::class, 'userLogout'])
+    ->name('user.logout');
 
+Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 

@@ -47,11 +47,7 @@ class AuthController extends Controller
                 'songirisip' => $request->ip()
             ]);
 
-            // Inertia ile uyumlu response
-            if ($request->wantsJson() || $request->header('X-Inertia')) {
-                return response()->json(['success' => true]);
-            }
-
+            // Inertia için redirect response
             return redirect()->intended('/');
         } else {
             throw \Illuminate\Validation\ValidationException::withMessages([
@@ -164,6 +160,8 @@ class AuthController extends Controller
         $request->session()->forget(['admin_id', 'admin']);
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        // Inertia için redirect response
         return redirect('/');
     }
 

@@ -8,6 +8,9 @@ class Admin extends Model
 {
     protected $table = 'admin';
 
+    // Laravel'in otomatik timestamp'lerini devre dışı bırak
+    public $timestamps = false;
+
     protected $fillable = [
         'username',
         'password',

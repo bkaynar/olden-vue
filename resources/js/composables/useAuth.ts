@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import type { User } from '../types';
 
@@ -14,23 +14,16 @@ export function useAuth() {
 
     // Çıkış fonksiyonu
     const logout = () => {
-        // Form submit ile logout endpoint'ine istek gönder
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '/user/logout';
+        // Inertia ile logout endpoint'ine POST isteği gönder
+        const form = useForm({});
 
-        // CSRF token ekle
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-        if (csrfToken) {
-            const tokenInput = document.createElement('input');
-            tokenInput.type = 'hidden';
-            tokenInput.name = '_token';
-            tokenInput.value = csrfToken;
-            form.appendChild(tokenInput);
-        }
-
-        document.body.appendChild(form);
-        form.submit();
+        form.post('/user/logout', {
+            onError: (errors) => {
+                console.error('Logout error:', errors);
+                // Hata durumunda home'a yönlendir
+                window.location.href = '/';
+            },
+        });
     };
 
     return {

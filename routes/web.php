@@ -6,6 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Models\Slider;
 use App\Models\Transaction;
 
+// Ana sayfa route'u
+Route::get('/', [HomeController::class, 'index'])->name('index');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('dashboard', function () {

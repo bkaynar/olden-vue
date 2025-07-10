@@ -91,10 +91,6 @@ const closeModal = () => {
 
 const handleLogin = () => {
     form.post(route('user.login'), {
-        onSuccess: () => {
-            emit('login-success')
-            closeModal()
-        },
         onError: (errors) => {
             console.error('Login errors:', errors)
         },
