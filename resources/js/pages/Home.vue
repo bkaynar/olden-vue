@@ -34,7 +34,7 @@
         </div>
 
 
-         <!-- Yeni Oyunlar Section -->
+        <!-- Yeni Oyunlar Section -->
         <div class="oldenbet-games-section">
             <div class="section-header">
                 <div class="section-title">
@@ -42,7 +42,7 @@
                     <span>Casino Oyunları</span>
                 </div>
             </div>
-            <Casino :games="casino" />
+            <Casino :casinoOyunlari="casinoOyunlari" />
         </div>
 
         <!-- Canlı Casino Section -->
@@ -72,7 +72,7 @@ import Casino from '../components/Casino.vue'
 export default defineComponent({
     name: 'HomePage',
     layout: MainLayout,
-    components: { HeroCarousel, TopWinners, Games, LiveCasino, LiveMatchesRow , Casino },
+    components: { HeroCarousel, TopWinners, Games, LiveCasino, LiveMatchesRow, Casino },
     props: {
         carouselItems: {
             type: Array,
@@ -92,7 +92,7 @@ export default defineComponent({
             required: false,
             default: () => []
         },
-        casino: {
+        casinoOyunlari: {
             type: Array,
             required: false,
             default: () => []
@@ -120,7 +120,7 @@ export default defineComponent({
             { id: 6, username: 'Al***42', amount: '250.00' },
             { id: 7, username: 'Az***90', amount: '250.00' }
         ])
-        const casino = ref((props.casino ?? []) as any)
+        const casinoOyunlari = ref((props.casinoOyunlari ?? []) as any)
         const joinNow = () => {
             console.log('Join now clicked')
         }
@@ -130,7 +130,7 @@ export default defineComponent({
             activeTab,
             winnerTabs,
             games,
-            casino,
+            casinoOyunlari,
             liveCasinoGames,
             inviteRewards,
             joinNow,

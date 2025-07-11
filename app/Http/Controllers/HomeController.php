@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use App\Models\CasinoOyun;
 
 class HomeController extends Controller
 {
@@ -95,7 +96,7 @@ class HomeController extends Controller
             ];
         });
 
-        $casinoOyunlari = \App\Models\CasinoOyun::orderBy('sira', 'asc')->get()->map(function ($oyun) {
+        $casinoOyunlari = CasinoOyun::orderBy('sira', 'asc')->get()->map(function ($oyun) {
             return [
                 'gorsel' => $oyun->gorsel,
                 'url' => $oyun->url,
