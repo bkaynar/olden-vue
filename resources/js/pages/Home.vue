@@ -61,6 +61,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+import { useHead } from '@vueuse/head'
 import MainLayout from '../layouts/MainLayout.vue'
 import HeroCarousel from '../components/HeroCarousel.vue'
 import TopWinners from '../components/TopWinners.vue'
@@ -100,6 +102,18 @@ export default defineComponent({
 
     },
     setup(props) {
+        const page = usePage()
+        useHead({
+            title: page.props.siteTitle as string,
+            meta: [
+                { name: 'description', content: page.props.siteTitle as string },
+                { name: 'keywords', content: page.props.siteKeywords as string },
+            ],
+            link: [
+                { rel: 'icon', href: page.props.favicon as string }
+            ]
+        })
+
         console.log('allGames backendden:', props.allGames)
         const activeTab = ref('casino')
         const winnerTabs = ref([

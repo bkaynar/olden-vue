@@ -113,10 +113,6 @@ const forgotPassword = () => {
 </script>
 
 <style scoped>
-/* Stil tanımlarınız aynı kalabilir */
-</style>
-
-<style scoped>
 .login-modal {
     width: 100%;
     max-width: 440px;

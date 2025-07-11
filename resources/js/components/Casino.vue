@@ -384,7 +384,7 @@ const filteredCasino = computed(() => {
     position: relative;
     width: 100%;
     height: 220px;
-    padding: 20px 0;
+    padding: 20px 120px;
     display: flex;
     justify-content: center;
     align-items: center;
