@@ -3,7 +3,7 @@
     <q-toolbar class="q-px-lg">
       <!-- Mobilde sol üstte logo -->
       <div class="header-logo-mobile">
-        <img :src="logoSrc" alt="Logo" class="logo-img" style="width: 40%;"/>
+        <img :src="logoSrc" alt="Logo" class="logo-img" style="width: 40%;" />
       </div>
       <q-space />
 
