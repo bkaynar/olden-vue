@@ -1,9 +1,9 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf" class="dark-layout">
     <AppHeader />
     <AppSidebar ref="sidebarRef" />
 
-    <q-page-container>
+    <q-page-container class="dark-page-container">
       <q-page class="main-content">
         <slot />
       </q-page>
@@ -52,6 +52,36 @@ export default defineComponent({
 })
 </script>
 
+<style>
+/* Global Dark Theme */
+body {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%) !important;
+  color: white !important;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+#q-app {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%) !important;
+  min-height: 100vh;
+}
+
+/* Layout Dark Classes */
+.dark-layout {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%) !important;
+  min-height: 100vh;
+}
+
+.dark-page-container {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%) !important;
+  padding-top: 60px;
+  padding-left: 280px;
+  overflow-y: auto;
+  height: 100vh;
+}
+</style>
+
 <style scoped>
 /* Global scroll sıfırlama */
 :deep(html, body) {
@@ -60,8 +90,7 @@ export default defineComponent({
 }
 
 .main-content {
-  background: url('images/bg.png') no-repeat center center;
-  background-size: cover;
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
   min-height: calc(100vh - 60px);
   overflow-y: visible;
   display: flex;
@@ -78,23 +107,26 @@ export default defineComponent({
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('/public/images/bg.png') no-repeat center center;
-  background-size: cover;
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
   z-index: -1;
 }
 
 /* Layout adjustments */
 :deep(.q-layout) {
-  background: #1a1a1a;
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%) !important;
   min-height: 100vh;
 }
 
 :deep(.q-page-container) {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%) !important;
   padding-top: 60px;
   padding-left: 280px;
   overflow-y: auto;
   height: 100vh;
-  /* Bütünüyle viewport’u kapla */
+}
+
+:deep(.q-page) {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%) !important;
 }
 
 /* Mobile adjustments */
@@ -102,12 +134,13 @@ export default defineComponent({
   :deep(.q-page-container) {
     padding-left: 0;
     padding-bottom: 80px;
-    /* Bottom navigation için alan */
+    background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%) !important;
   }
 
   .main-content {
     min-height: calc(100vh - 60px - 80px);
     padding: 15px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%) !important;
   }
 }
 
@@ -118,5 +151,23 @@ export default defineComponent({
       padding-bottom: calc(80px + env(safe-area-inset-bottom));
     }
   }
+}
+
+/* Scrollbar Styling */
+:deep(*::-webkit-scrollbar) {
+  width: 6px;
+}
+
+:deep(*::-webkit-scrollbar-track) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+:deep(*::-webkit-scrollbar-thumb) {
+  background: rgba(0, 255, 136, 0.3);
+  border-radius: 3px;
+}
+
+:deep(*::-webkit-scrollbar-thumb:hover) {
+  background: rgba(0, 255, 136, 0.5);
 }
 </style>

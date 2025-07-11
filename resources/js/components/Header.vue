@@ -1,9 +1,9 @@
 <template>
   <q-header elevated class="bg-dark text-white">
     <q-toolbar class="q-px-lg">
-      <!-- Mobilde sol üstte logo -->
-      <div class="header-logo-mobile">
-        <img :src="logoSrc" alt="Logo" class="logo-img" style="width: 40%;" />
+      <!-- Desktop ve mobile logo -->
+      <div class="header-logo">
+        <img :src="logoSrc" alt="Logo" class="logo-img" />
       </div>
       <q-space />
 
@@ -434,13 +434,22 @@ export default defineComponent({
   display: none !important;
 }
 
-.header-logo-mobile {
-  display: none;
+.header-logo {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+  max-width: 120px;
 }
 
 @media (max-width: 1023px) {
-  .header-logo-mobile {
-    display: block;
+  .logo-img {
+    height: 32px;
+    max-width: 100px;
   }
 
   .auth-actions {
@@ -454,6 +463,10 @@ export default defineComponent({
   .q-toolbar {
     min-height: 60px;
     padding: 0 16px;
+  }
+
+  .header-logo {
+    margin-right: 16px;
   }
 
   .user-profile,
