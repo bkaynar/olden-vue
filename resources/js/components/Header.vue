@@ -434,6 +434,21 @@ export default defineComponent({
   display: none !important;
 }
 
+.header-logo-mobile {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .header-logo-mobile {
+    display: block;
+  }
+
+  .auth-actions {
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+
 /* Mobile adjustments */
 @media (max-width: 1023px) {
   .q-toolbar {
