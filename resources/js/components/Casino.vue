@@ -514,4 +514,22 @@ const filteredCasino = computed(() => {
 .Casino-nav-next {
     right: 20px;
 }
+
+@media (max-width: 768px) {
+    .swiper-container {
+        padding: 20px 0 !important;
+    }
+
+    .Casino-main-swiper {
+        padding: 0 !important;
+    }
+
+    .Casino-nav-prev {
+        left: 0 !important;
+    }
+
+    .Casino-nav-next {
+        right: 0 !important;
+    }
+}
 </style>
