@@ -1,6 +1,10 @@
 <template>
   <q-header elevated class="bg-dark text-white">
     <q-toolbar class="q-px-lg">
+      <!-- Mobilde sol üstte logo -->
+      <div class="header-logo-mobile">
+        <img :src="logoSrc" alt="Logo" class="logo-img" style="width: 40%;"/>
+      </div>
       <q-space />
 
       <!-- Giriş yapmış kullanıcı için profil alanı -->
@@ -108,6 +112,7 @@ import LoginModal from './LoginModal.vue'
 import RegisterModal from './RegisterModal.vue'
 import { useAuthModals } from '../composables/useAuthModals'
 import { useAuth } from '../composables/useAuth'
+import { usePage } from '@inertiajs/vue3'
 
 export default defineComponent({
   name: 'AppHeader',
@@ -130,6 +135,8 @@ export default defineComponent({
     } = useAuthModals()
 
     const { user, isAuthenticated, logout } = useAuth()
+    const page = usePage()
+    const logoSrc = (page.props.siteLogo as string) || '/images/logon.png'
 
     // Login success handler'ı güncelleyelim
     const handleLogin = () => {
@@ -148,7 +155,8 @@ export default defineComponent({
       handleRegisterSuccess,
       user,
       isAuthenticated,
-      logout
+      logout,
+      logoSrc
     }
   }
 })
