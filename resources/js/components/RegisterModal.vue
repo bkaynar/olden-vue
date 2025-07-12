@@ -714,6 +714,8 @@ export default defineComponent({
     .register-modal {
         margin: 16px;
         max-width: calc(100vw - 32px);
+        max-height: calc(100vh - 120px);
+        margin-bottom: 80px;
     }
 
     .form-row {

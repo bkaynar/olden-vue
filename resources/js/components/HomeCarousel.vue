@@ -123,7 +123,6 @@ export default defineComponent({
     z-index: 10;
 }
 
-
 .carousel-pagination {
     display: flex;
     gap: 8px;
@@ -144,5 +143,84 @@ export default defineComponent({
     width: 40px;
     height: 4px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .banner-container--ermJA {
+        margin: 0 16px 20px 16px !important;
+        padding: 0 !important;
+        width: calc(100% - 32px) !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+    
+    .carousel-container--W3CqL {
+        border-radius: 12px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+    
+    .carousel--sPpxd {
+        border-radius: 12px !important;
+        height: 200px !important;
+    }
+    
+    .banner--cswSm {
+        height: 200px !important;
+        border-radius: 12px !important;
+    }
+    
+    .image--E8HoT {
+        height: 200px !important;
+        width: 100% !important;
+        border-radius: 12px !important;
+        object-fit: cover !important;
+    }
+    
+    .pagination-container {
+        bottom: 15px !important;
+        z-index: 2 !important;
+    }
+    
+    :deep(.carousel-pagination .dot--kZnIh) {
+        width: 20px !important;
+        height: 3px !important;
+    }
+    
+    :deep(.carousel-pagination .dot--kZnIh.active--ahLJx) {
+        width: 30px !important;
+        height: 3px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel--sPpxd {
+        height: 180px !important;
+    }
+    
+    .banner--cswSm {
+        height: 180px !important;
+    }
+    
+    .image--E8HoT {
+        height: 180px !important;
+    }
+    
+    .pagination-container {
+        bottom: 10px !important;
+    }
+    
+    :deep(.carousel-pagination .dot--kZnIh) {
+        width: 15px !important;
+        height: 2px !important;
+    }
+    
+    :deep(.carousel-pagination .dot--kZnIh.active--ahLJx) {
+        width: 25px !important;
+        height: 2px !important;
+    }
 }
 </style>

@@ -5,12 +5,14 @@
             <div class="page-container--b9cos with-nav-bar--eeJ5X">
                 <div>
                     <main class="main--OHTmN">
+                        <HomeCarousel :carouselItems="carouselItems" />
                         <!-- Buraya Carousel Gelecek-->
                         <div class="landing-page--c1ioC">
                          <!--TopWinners-->
-                         <MobileTopWinners/>
+                        
+                         <MobileTopWinners :lastWinners="lastWinners" />
                          <!-- End TopWinners-->
-                            <OldenMobileGames/>
+                            <OldenMobileGames :allGames="allGames" />
                             <div class="all-games-for-landing--byfR9">
                                 <div class="section-title--WFPh_">
                                     <div class="logo--IXshK loader--ud87y"></div>Baywin Casino
@@ -3026,6 +3028,7 @@ import MobileLayout from '@/layouts/MobileLayout.vue'
 import MobileTopWinners from '@/components/MobileTopWinners.vue'
 import OldenMobileGames from '@/components/OldenMobileGames.vue'
 import MobileNavbar from '@/components/MobileNavbar.vue'
+import HomeCarousel from '@/components/HomeCarousel.vue'
 export default defineComponent({
     name: 'HomePage',
     layout: MobileLayout,
@@ -3033,6 +3036,7 @@ export default defineComponent({
         OldenMobileGames,
         MobileTopWinners,
         MobileNavbar,
+        HomeCarousel,
     },
     props: {
         carouselItems: {
