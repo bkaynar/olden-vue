@@ -1,9 +1,5 @@
 
 <template>
-    <div style="background: blue; padding: 10px; margin: 10px;">
-        <p style="color: white;">MobileTopWinners Component Loaded</p>
-        <p style="color: white;">lastWinners count: {{ lastWinners ? lastWinners.length : 'undefined' }}</p>
-    </div>
      <div class="top-winners--lc7eS">
                 <div class="section-title--WFPh_">
                   <div class="logo--IXshK loader--ud87y"></div>En çok kazananlar
