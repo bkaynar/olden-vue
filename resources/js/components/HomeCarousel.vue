@@ -18,6 +18,7 @@
                                         class="image--E8HoT" 
                                         :alt="`Banner ${index + 1}`"
                                         :src="item.gorsel"
+                                        style="object-fit:fill;"
                                     >
                                 </picture>
                                 <a 
