@@ -1,7 +1,7 @@
 <template>
     <div class="all-games-for-landing--byfR9">
         <div class="section-title--WFPh_">
-            <div class="logo--IXshK loader--ud87y"></div>Ligobet Canlı Casino
+            <div class="logo--IXshK loader--ud87y"></div>Olden Canlı Casino
         </div>
         <div>
             <div class="flex--FROoX justify-content-space-between--FG9LF align-items-center--tfa4H width-full--aKfzU scroll-container--NegAT"
@@ -10,26 +10,14 @@
                     <div class="scroll-inner--hoEfS"
                         style="user-select: none; -webkit-user-drag: none; touch-action: auto;">
                         <div class="track-wrapper--PYNfr">
-                            <div class="track--VvsrB track--lLD_k"><button class="label--vzvXT active-label--fYpJ3">
-                                    <div class="ellipsis--_PsgU">Tümü</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Popüler</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">BlackJack</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Yeni Oyunlar !
-                                    </div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Roulette</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Türkçe Masalar
-                                    </div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Baccarat</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Gösteri Oyunları
-                                    </div>
-                                </button></div>
+                            <div class="track--VvsrB track--lLD_k">
+                                <button v-for="gameType in gameTypes" 
+                                        :key="gameType.key"
+                                        @click="setCategory(gameType.key)"
+                                        :class="['label--vzvXT', { 'active-label--fYpJ3': selectedCategory === gameType.key }]">
+                                    <div class="ellipsis--_PsgU">{{ gameType.label }}</div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div><a href="/tr-tr/live_casino/label/c4c9e582-7068-4233-bbdc-37ec9fca0926"><button
@@ -40,23 +28,19 @@
                     </button></a>
             </div>
             <div style="display: grid; grid-template: 1fr / repeat(6, 1fr); gap: 16px;">
-                <div class="grid-item--hCbSj grid-item--i_Lyu" style="grid-area: 1 / 1 / span 1 / span 1;">
+                <div v-for="(game, index) in filteredGames.slice(0, 6)" :key="game.id" 
+                     class="grid-item--hCbSj grid-item--i_Lyu" 
+                     :style="`grid-area: 1 / ${index + 1} / span 1 / span 1;`">
                     <div class="grid-header--QFnkm" style="padding-bottom: calc(100% + 0px);">
                         <div class="grid-header-container--rxYb4">
                             <div class="inner--u4tpo">
                                 <div class="lazy-game-img--sjk9r loaded-high--jYvGy loaded--h8_TN fallback--Bvtqc">
                                     <picture class="img-high--AQcT9 picture--Umaem game-img--EXXY2">
-                                        <source srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/760ebfc604154ae9a6cb6200e7aac2f4__NCslMjgxJTI5LnBuZw==.webp?format=webp&amp;quality=80&amp;width=300 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/760ebfc604154ae9a6cb6200e7aac2f4__NCslMjgxJTI5LnBuZw==.webp?format=webp&amp;quality=80&amp;width=600 2x
-  ">
-                                        <source srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/760ebfc604154ae9a6cb6200e7aac2f4__NCslMjgxJTI5LnBuZw==.jpg?quality=80&amp;width=300 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/760ebfc604154ae9a6cb6200e7aac2f4__NCslMjgxJTI5LnBuZw==.jpg?quality=80&amp;width=600 2x
-  "><img class="img-high--AQcT9 picture--Umaem game-img--EXXY2" width="300" loading="lazy" alt="picture" srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/760ebfc604154ae9a6cb6200e7aac2f4__NCslMjgxJTI5LnBuZw==.jpg?quality=80&amp;width=300 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/760ebfc604154ae9a6cb6200e7aac2f4__NCslMjgxJTI5LnBuZw==.jpg?quality=80&amp;width=600 2x
-  ">
+                                        <img class="img-high--AQcT9 picture--Umaem game-img--EXXY2" 
+                                             width="300" 
+                                             loading="lazy" 
+                                             :alt="game.name" 
+                                             :src="game.cover">
                                     </picture>
                                 </div>
                                 <div class="flex--FROoX badges--R9RLh badge--ugkBh" style="gap: 4px;">
@@ -128,7 +112,7 @@
                                     </div>
                                 </div>
                                 <div class="game-overlay--zlXt0">
-                                    <div class="link--EXVkB">
+                                    <a class="link--EXVkB" :href="game.url || '#'">
                                         <div class="flex--FROoX direction-column--e4TCZ justify-content-space-between--FG9LF align-items-flex-end--GQYyT width-full--aKfzU overlay--_OWzB"
                                             style="gap: 2px;">
                                             <div class="fav--vC9GF visible--yXKHs">
@@ -158,16 +142,14 @@
                                                 </div>
                                             </button>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="game-bottom-info--FddEW" style="height: 56px;">
-                        <div class="ellipsis--_PsgU game-name--QVKni">Baywin VIP
-                            Blackjack 4</div>
-                        <div class="ellipsis--_PsgU provider-name--D0UL6">Pragmatic
-                            Play</div>
+                        <div class="ellipsis--_PsgU game-name--QVKni">{{ game.name }}</div>
+                        <div class="ellipsis--_PsgU provider-name--D0UL6">{{ game.category }}</div>
                     </div>
                 </div>
             </div>
@@ -176,7 +158,41 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent, ref, computed } from 'vue'
+
+export default defineComponent({
     name: 'LigoLiveCasino',
-};
+    props: {
+        liveCasinoGames: {
+            type: Array,
+            default: () => []
+        }
+    },
+    setup(props) {
+        const selectedCategory = ref('all')
+
+        const gameTypes = computed(() => {
+            const types = [...new Set(props.liveCasinoGames.map((game: any) => game.category).filter(Boolean))]
+            return [{ key: 'all', label: 'Tümü' }, ...types.map(type => ({ key: type, label: type }))]
+        })
+
+        const filteredGames = computed(() => {
+            if (selectedCategory.value === 'all') {
+                return props.liveCasinoGames
+            }
+            return props.liveCasinoGames.filter((game: any) => game.category === selectedCategory.value)
+        })
+
+        const setCategory = (category: string) => {
+            selectedCategory.value = category
+        }
+
+        return {
+            selectedCategory,
+            gameTypes,
+            filteredGames,
+            setCategory
+        }
+    }
+});
 </script>

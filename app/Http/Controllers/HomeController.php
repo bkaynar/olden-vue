@@ -92,7 +92,12 @@ class HomeController extends Controller
                 $cover = '/images/' . ltrim($cover, '/');
             }
             return [
+                'id' => $game->id,
                 'cover' => $cover,
+                'url' => $game->url,
+                'sira' => $game->sira,
+                'name' => 'Live Casino Game ' . $game->id, // Geçici isim
+                'category' => 'Live Casino' // Geçici kategori
             ];
         });
 

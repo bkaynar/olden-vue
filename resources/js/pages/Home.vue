@@ -2,7 +2,7 @@
     <div class="main-page--iqket">
         <div class="page--rJpFf">
             <div class="main--mG7G7">
-                <HomeCarousel />
+                <HomeCarousel :carouselItems="carouselItems" />
                 <div class="landing-page--Unyg2">
                     <!-- Top Winners -->
                     <TopWinners :tabs="winnerTabs" :active-tab="activeTab" :winners="filteredWinners"
@@ -10,7 +10,7 @@
                     <DavetEtKazan />
                     <LigoGames :allGames="allGames" />
                     <LigoCasino />
-                    <LigoLiveCasino />
+                    <LigoLiveCasino :liveCasinoGames="liveCasinoGames" />
                     <OldenHomeBanner/>
                     <!--<OldenPreFooter />-->
                 </div>
@@ -50,6 +50,10 @@ export default defineComponent({
             default: () => []
         },
         allGames: {
+            type: Array,
+            default: () => []
+        },
+        liveCasinoGames: {
             type: Array,
             default: () => []
         }

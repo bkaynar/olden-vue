@@ -1,7 +1,7 @@
 <template>
     <div class="all-games-for-landing--byfR9">
         <div class="section-title--WFPh_">
-            <div class="logo--IXshK loader--ud87y"></div>Ligobet Casino
+            <div class="logo--IXshK loader--ud87y"></div>OldenCasino
         </div>
         <div>
             <div class="flex--FROoX justify-content-space-between--FG9LF align-items-center--tfa4H width-full--aKfzU scroll-container--NegAT"
