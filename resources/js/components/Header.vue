@@ -1,109 +1,32 @@
 <template>
-  <q-header elevated class="bg-dark text-white">
-    <q-toolbar class="q-px-lg">
-      <!-- Desktop ve mobile logo -->
-      <div class="header-logo">
-        <img :src="logoSrc" alt="Logo" class="logo-img" />
-      </div>
-      <q-space />
-
-      <!-- Giriş yapmış kullanıcı için profil alanı -->
-      <div v-if="isAuthenticated" class="user-profile row items-center q-gutter-sm">
-        <div class="user-info">
-          <div class="user-name">{{ user.name }}</div>
-          <div class="user-balance">{{ user.bakiye }} {{ user.parabirimi }}</div>
+  <header class="header--9KA5L">
+    <div class="flex--FROoX panel--Z3hs5">
+      <div class="logo--fV2t3"><a class="logo-container--I_EVs" href="/tr-tr/"></a></div>
+      <div class="buttons--xhcFd">
+        <div class="btn-login--z_RH_">
+          <div class="ellipsis--_PsgU">GİRİŞ</div>
         </div>
-
-        <q-btn-dropdown flat round class="user-avatar" dropdown-icon="" auto-close anchor="bottom end" self="top end"
-          :content-class="'custom-dropdown'"
-          :content-style="{ background: 'transparent', boxShadow: 'none', padding: '0' }">
-          <template v-slot:label>
-            <q-avatar color="green" text-color="white" size="40px">
-              <q-icon name="person" />
-            </q-avatar>
-          </template>
-
-          <div class="user-dropdown">
-            <!-- Kullanıcı Bilgi Alanı -->
-            <div class="user-header">
-              <div class="user-avatar-large">
-                <q-avatar color="green" text-color="white" size="60px">
-                  <q-icon name="person" size="32px" />
-                </q-avatar>
-                <q-btn flat round size="sm" icon="edit" class="edit-btn" color="white" />
-              </div>
-              <div class="user-details">
-                <div class="username">{{ user?.username || user?.name }}</div>
-                <div class="user-status">
-                  <q-icon name="verified" color="green" size="16px" />
-                </div>
-              </div>
-            </div>
-
-            <!-- Menü Öğeleri -->
-            <div class="menu-items">
-              <q-item clickable v-close-popup class="menu-item">
-                <q-item-section avatar>
-                  <q-icon name="person" color="white" size="20px" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label class="menu-label">Hesabım</q-item-label>
-                </q-item-section>
-              </q-item>
-
-              <q-item clickable v-close-popup class="menu-item">
-                <q-item-section avatar>
-                  <q-icon name="mail" color="white" size="20px" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label class="menu-label">Dekont Gönder</q-item-label>
-                </q-item-section>
-              </q-item>
-
-              <q-item clickable v-close-popup class="menu-item">
-                <q-item-section avatar>
-                  <q-icon name="phone" color="white" size="20px" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label class="menu-label">Aranma Talep Et</q-item-label>
-                </q-item-section>
-              </q-item>
-
-              <q-item clickable v-close-popup class="menu-item">
-                <q-item-section avatar>
-                  <q-icon name="group" color="white" size="20px" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label class="menu-label">Davet Et & Kazan</q-item-label>
-                </q-item-section>
-              </q-item>
-
-              <q-item clickable v-close-popup @click="logout" class="menu-item logout-item">
-                <q-item-section avatar>
-                  <q-icon name="power_settings_new" color="white" size="20px" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label class="menu-label">Çıkış Yap</q-item-label>
-                </q-item-section>
-              </q-item>
-            </div>
-          </div>
-        </q-btn-dropdown>
+        <div class="btn-join-now--SG3v1">
+          <div class="ellipsis--_PsgU">Kayıt ol</div>
+        </div><button class="chat-button--cupkJ"><span class="wrapper--xQUxI"
+            style="height: 16px; width: 16px; min-width: 16px;"><svg width="18" height="18" viewBox="0 0 18 18"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.46223 14.7661L6.24241 14.5456H5.931H1.8C1.52145 14.5456 1.25436 14.4349 1.05746 14.2381C0.860572 14.0413 0.75 13.7744 0.75 13.4961V1.79948C0.75 1.52121 0.860572 1.25429 1.05746 1.05746C1.25436 0.860623 1.52145 0.75 1.8 0.75H16.2C16.4785 0.75 16.7456 0.860622 16.9425 1.05746C17.1394 1.25429 17.25 1.52121 17.25 1.79948V13.4961C17.25 13.7744 17.1394 14.0413 16.9425 14.2381C16.7456 14.4349 16.4785 14.5456 16.2 14.5456H12.069H11.7576L11.5378 14.7661L9.10777 17.2044L9.10658 17.2056C9.09264 17.2197 9.07605 17.2308 9.05776 17.2385C9.03947 17.2461 9.01984 17.25 9 17.25C8.98016 17.25 8.96053 17.2461 8.94225 17.2385C8.92395 17.2308 8.90736 17.2197 8.89343 17.2056L8.89223 17.2044L6.46223 14.7661Z"
+                stroke="currentColor" stroke-width="1.5"></path>
+              <path
+                d="M6.75 7.5C6.75 8.32843 6.07843 9 5.25 9C4.42157 9 3.75 8.32843 3.75 7.5C3.75 6.67157 4.42157 6 5.25 6C6.07843 6 6.75 6.67157 6.75 7.5Z"
+                fill="currentColor"></path>
+              <path
+                d="M10.5 7.5C10.5 8.32843 9.82843 9 9 9C8.17157 9 7.5 8.32843 7.5 7.5C7.5 6.67157 8.17157 6 9 6C9.82843 6 10.5 6.67157 10.5 7.5Z"
+                fill="currentColor"></path>
+              <path
+                d="M14.25 7.5C14.25 8.32843 13.5784 9 12.75 9C11.9216 9 11.25 8.32843 11.25 7.5C11.25 6.67157 11.9216 6 12.75 6C13.5784 6 14.25 6.67157 14.25 7.5Z"
+                fill="currentColor"></path>
+            </svg></span></button>
       </div>
-
-      <!-- Giriş yapmamış kullanıcı için giriş butonları -->
-      <div v-else class="auth-actions row items-center q-gutter-sm">
-        <q-btn flat no-caps label="GİRİŞ" class="nav-btn" @click="openLoginModal" />
-        <q-btn unelevated no-caps label="Kayıt Ol" class="register-btn" color="green" @click="openRegisterModal" />
-      </div>
-    </q-toolbar>
-
-    <!-- Auth Modals -->
-    <LoginModal v-model="showLoginModal" @switch-to-register="switchToRegister" @login-success="handleLoginSuccess" />
-
-    <RegisterModal v-model="showRegisterModal" @switch-to-login="switchToLogin"
-      @register-success="handleRegisterSuccess" />
-  </q-header>
+    </div>
+  </header>
 </template>
 
 <script lang="ts">
@@ -392,9 +315,15 @@ export default defineComponent({
 }
 
 .q-toolbar {
-  min-height: 80px;
+  min-height: 70px;
   background: #20242e;
   border-bottom: 1px solid #333;
+}
+
+:deep(.q-header) {
+  z-index: 1000;
+  position: fixed;
+  width: 100%;
 }
 
 /* Global overrides for this dropdown */
