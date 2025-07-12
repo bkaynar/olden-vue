@@ -9,6 +9,8 @@ use App\Models\Transaction;
 // Ana sayfa route'u
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
+Route::get('/mobile', [HomeController::class, 'mobile'])->name('mobile.home');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('dashboard', function () {

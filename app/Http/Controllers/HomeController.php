@@ -11,6 +11,11 @@ use App\Models\CasinoOyun;
 
 class HomeController extends Controller
 {
+
+    public function mobile()
+    {
+        return Inertia::render('MobileHome');
+    }
     public function index()
     {
         $carouselItems = Slider::orderBy('sira')->get(['gorsel', 'url', 'sira'])->map(function ($item) {
