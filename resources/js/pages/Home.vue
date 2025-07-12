@@ -497,12 +497,8 @@
                 </div>
                 <div class="landing-page--Unyg2">
                     <!-- Top Winners -->
-                    <TopWinners
-                        :tabs="winnerTabs"
-                        :active-tab="activeTab"
-                        :winners="filteredWinners"
-                        @tab-change="activeTab = $event"
-                    />
+                    <TopWinners :tabs="winnerTabs" :active-tab="activeTab" :winners="filteredWinners"
+                        @tab-change="activeTab = $event" />
                     <div class="flex--FROoX direction-column--e4TCZ" style="gap: 16px;">
                         <div class="section-title--WFPh_">
                             <div class="logo--IXshK loader--ud87y"></div>Davet Et &amp; Kazan
@@ -2726,6 +2722,10 @@ export default defineComponent({
         carouselItems: {
             type: Array,
             required: true
+        },
+        lastWinners: {
+            type: Array,
+            default: () => []
         }
     },
     setup(props) {
@@ -2750,55 +2750,9 @@ export default defineComponent({
             { key: 'sports', label: 'Sports' }
         ])
 
-        const winners = ref([
-            {
-                username: 'Til**za',
-                avatar: 'TZ',
-                game: 'Dice',
-                provider: '',
-                amount: '67,097.60',
-                type: 'casino'
-            },
-            {
-                username: 'Xx**Tac',
-                avatar: 'XT',
-                game: 'Sugar Rush 1000',
-                provider: 'Pragmatic Play',
-                amount: '66,630.00',
-                type: 'casino'
-            },
-            {
-                username: 'Py**K8',
-                avatar: 'PK',
-                game: 'Big Bass Bonanza 3 R...',
-                provider: 'Pragmatic Play',
-                amount: '65,240.00',
-                type: 'casino'
-            },
-            {
-                username: 'Ogi**76',
-                avatar: 'O7',
-                game: 'Sugar Rush',
-                provider: 'Pragmatic Play',
-                amount: '63,750.00',
-                type: 'casino'
-            },
-            {
-                username: 'ZX**ZZ',
-                avatar: 'ZZ',
-                game: 'VIP 40 Zadiac Wheel ...',
-                provider: 'EST Digital',
-                amount: '62,100.00',
-                type: 'originals'
-            }
-        ])
-
+        // winners kaldırıldı, doğrudan props.lastWinners kullanılıyor
         const filteredWinners = computed(() => {
-            if (activeTab.value === 'casino') {
-                return winners.value.filter(winner => winner.type === 'casino')
-            }
-            // Diğer filtrelemeler buraya eklenebilir
-            return winners.value
+            return props.lastWinners
         })
 
         const joinNow = () => {
@@ -2809,7 +2763,6 @@ export default defineComponent({
             ...props,
             activeTab,
             winnerTabs,
-            winners,
             filteredWinners,
             joinNow
         }
