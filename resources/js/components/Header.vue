@@ -3,10 +3,10 @@
     <div class="flex--FROoX panel--Z3hs5">
       <div class="logo--fV2t3"><a class="logo-container--I_EVs" href="/tr-tr/"></a></div>
       <div class="buttons--xhcFd">
-        <div class="btn-login--z_RH_">
+        <div class="btn-login--z_RH_" @click="openLoginModal">
           <div class="ellipsis--_PsgU">GİRİŞ</div>
         </div>
-        <div class="btn-join-now--SG3v1">
+        <div class="btn-join-now--SG3v1" @click="openRegisterModal">
           <div class="ellipsis--_PsgU">Kayıt ol</div>
         </div><button class="chat-button--cupkJ"><span class="wrapper--xQUxI"
             style="height: 16px; width: 16px; min-width: 16px;"><svg width="18" height="18" viewBox="0 0 18 18"
@@ -26,6 +26,20 @@
             </svg></span></button>
       </div>
     </div>
+    
+    <!-- Login Modal -->
+    <LoginModal 
+      v-model="showLoginModal"
+      @switch-to-register="switchToRegister"
+      @login-success="handleLoginSuccess"
+    />
+    
+    <!-- Register Modal -->
+    <RegisterModal 
+      v-model="showRegisterModal"
+      @switch-to-login="switchToLogin"
+      @register-success="handleRegisterSuccess"
+    />
   </header>
 </template>
 

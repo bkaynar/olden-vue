@@ -2206,8 +2206,8 @@ input:checked + .checkbox--DsywJ svg {
     width: 60px;
 }
 .loader--ud87y {
-    background-image: -webkit-image-set(url(https://api-baywin-tr--prd--pl-sb.dt3dterd.com/sportsbook__static/Assets/Images/c63b4e169e12ceed8be0.png) 1x,url(https://api-baywin-tr--prd--pl-sb.dt3dterd.com/sportsbook__static/Assets/Images/c63b4e169e12ceed8be0.png) 2x);
-    background-image: image-set(url(https://api-baywin-tr--prd--pl-sb.dt3dterd.com/sportsbook__static/Assets/Images/c63b4e169e12ceed8be0.png) 1x,url(https://api-baywin-tr--prd--pl-sb.dt3dterd.com/sportsbook__static/Assets/Images/c63b4e169e12ceed8be0.png) 2x);
+    background-image: -webkit-image-set(url(/images/DhouyimVAAARJMn.png) 1x, url(/images/DhouyimVAAARJMn.png) 2x);
+    background-image: image-set(url(/images/DhouyimVAAARJMn.png) 1x, url(/images/DhouyimVAAARJMn.png) 2x);
 }
 .container--ycVzb {
     display: flex;
@@ -9456,7 +9456,7 @@ header.active-chat--fzh6c {
     background-size: contain;
 }
 .logo-container--I_EVs {
-    background-image: url(https://api-baywin-tr--prd--pl-sb.dt3dterd.com/sportsbook__static/Assets/Images/c9a085357e68a01fdfa3.png);
+    background-image: url(images/logon.png);
     background-position: 0;
     height: 60px;
     position: relative;

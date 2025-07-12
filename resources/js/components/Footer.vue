@@ -6,17 +6,7 @@
             <div class="second-section--QObH5">
                 <div class="section-with-schedule--CIKsR line-section--TRMg9">
                     <picture class="logo-image--F9uDv">
-                        <source srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/cms/ce084057-73ce-407f-80cb-1ef1193bc87c__YmF5d2luTG9nby5wbmc=.webp?format=webp&amp;height=28px&amp;width=120px 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/cms/ce084057-73ce-407f-80cb-1ef1193bc87c__YmF5d2luTG9nby5wbmc=.webp?format=webp 2x
-  ">
-                        <source srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/cms/ce084057-73ce-407f-80cb-1ef1193bc87c__YmF5d2luTG9nby5wbmc=.jpg?height=28px&amp;width=120px 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/cms/ce084057-73ce-407f-80cb-1ef1193bc87c__YmF5d2luTG9nby5wbmc=.jpg 2x
-  "><img class="logo-image--F9uDv" loading="lazy" width="120px" height="28px" alt="picture" srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/cms/ce084057-73ce-407f-80cb-1ef1193bc87c__YmF5d2luTG9nby5wbmc=.jpg?height=28px&amp;width=120px 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/cms/ce084057-73ce-407f-80cb-1ef1193bc87c__YmF5d2luTG9nby5wbmc=.jpg 2x
-  ">
+                        <img class="logo-image--F9uDv" loading="lazy" width="120px" height="28px" alt="picture" srcset="/images/logon.png">
                     </picture>
                     <div class="rich-text--SVghZ section-subtitle--fD_WF overflow--Yn_z1">
                         <p>
