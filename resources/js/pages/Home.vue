@@ -8,7 +8,7 @@
                     <TopWinners :tabs="winnerTabs" :active-tab="activeTab" :winners="filteredWinners"
                         @tab-change="activeTab = $event" />
                     <DavetEtKazan />
-                    <LigoGames />
+                    <LigoGames :allGames="allGames" />
                     <LigoCasino />
                     <LigoLiveCasino />
                     <OldenHomeBanner/>
@@ -46,6 +46,10 @@ export default defineComponent({
             required: true
         },
         lastWinners: {
+            type: Array,
+            default: () => []
+        },
+        allGames: {
             type: Array,
             default: () => []
         }

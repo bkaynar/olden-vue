@@ -4,22 +4,21 @@
             <div class="logo--IXshK loader--ud87y"></div>Olden Oyunları
         </div>
         <div>
+            <!-- bu alana game_type getireceğim-->
             <div class="flex--FROoX justify-content-space-between--FG9LF align-items-center--tfa4H width-full--aKfzU scroll-container--NegAT"
                 style="gap: 20px;">
                 <div class="scroll--actJt label-scroll--WHCwf">
                     <div class="scroll-inner--hoEfS"
                         style="user-select: none; -webkit-user-drag: none; touch-action: auto;">
                         <div class="track-wrapper--PYNfr">
-                            <div class="track--VvsrB track--lLD_k"><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Baywin Originals
-                                    </div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Tümü</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Popüler</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Planör</div>
-                                </button></div>
+                            <div class="track--VvsrB track--lLD_k">
+                                <button v-for="gameType in gameTypes" 
+                                        :key="gameType.key"
+                                        @click="setCategory(gameType.key)"
+                                        :class="['label--vzvXT', { 'active-label--fYpJ3': selectedCategory === gameType.key }]">
+                                    <div class="ellipsis--_PsgU">{{ gameType.label }}</div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div><a href="/tr-tr/games/label/019034fe-d789-7e98-9743-58261ed28926"><button
@@ -29,25 +28,21 @@
                         </div>
                     </button></a>
             </div>
-            <!-- burada döngü ile veri getirilecek-->
+            <!-- Games grid with dynamic data -->
             <div style="display: grid; grid-template: 1fr / repeat(6, 1fr); gap: 16px;">
-                <div class="grid-item--hCbSj grid-item--i_Lyu" style="grid-area: 1 / 1 / span 1 / span 1;">
+                <div v-for="(game, index) in filteredGames.slice(0, 6)" :key="game.game_id" 
+                     class="grid-item--hCbSj grid-item--i_Lyu" 
+                     :style="`grid-area: 1 / ${index + 1} / span 1 / span 1;`">
                     <div class="grid-header--QFnkm" style="padding-bottom: calc(100% + 0px);">
                         <div class="grid-header-container--rxYb4">
                             <div class="inner--u4tpo">
                                 <div class="lazy-game-img--sjk9r loaded-high--jYvGy loaded--h8_TN fallback--Bvtqc">
                                     <picture class="img-high--AQcT9 picture--Umaem game-img--EXXY2">
-                                        <source srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/da154efa230849ebac7fb125c48c5ae6__QkFZV0lOLVRVUkJPLVJPTEwtUy5wbmc=.webp?format=webp&amp;quality=80&amp;width=300 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/da154efa230849ebac7fb125c48c5ae6__QkFZV0lOLVRVUkJPLVJPTEwtUy5wbmc=.webp?format=webp&amp;quality=80&amp;width=600 2x
-  ">
-                                        <source srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/da154efa230849ebac7fb125c48c5ae6__QkFZV0lOLVRVUkJPLVJPTEwtUy5wbmc=.jpg?quality=80&amp;width=300 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/da154efa230849ebac7fb125c48c5ae6__QkFZV0lOLVRVUkJPLVJPTEwtUy5wbmc=.jpg?quality=80&amp;width=600 2x
-  "><img class="img-high--AQcT9 picture--Umaem game-img--EXXY2" width="300" loading="lazy" alt="picture" srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/da154efa230849ebac7fb125c48c5ae6__QkFZV0lOLVRVUkJPLVJPTEwtUy5wbmc=.jpg?quality=80&amp;width=300 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/da154efa230849ebac7fb125c48c5ae6__QkFZV0lOLVRVUkJPLVJPTEwtUy5wbmc=.jpg?quality=80&amp;width=600 2x
-  ">
+                                        <img class="img-high--AQcT9 picture--Umaem game-img--EXXY2" 
+                                             width="300" 
+                                             loading="lazy" 
+                                             :alt="game.game_name" 
+                                             :src="game.cover">
                                     </picture>
                                 </div>
                                 <div class="flex--FROoX badges--R9RLh badge--ugkBh" style="gap: 4px;">
@@ -66,48 +61,21 @@
   https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/b0ffe58e70454defa0efaf993dfd1ddb__QWRzJUM0JUIxeit0YXNhciVDNCVCMW0ucG5n.jpg?height=24&amp;width=24 2x
   ">
                                         </picture>
-                                        <div class="ellipsis--_PsgU">Baywin Özel
+                                        <div class="ellipsis--_PsgU">{{ game.provider_name }}
                                         </div>
                                     </div>
-                                    <div class="flex--FROoX align-items-center--tfa4H"
+                                    <div v-if="game.eniyi" class="flex--FROoX align-items-center--tfa4H"
                                         style="display: inline-flex; align-items: center; gap: 2px; width: fit-content; max-width: 100%; padding: 2px 4px 2px 2px; border-radius: 4px; background: linear-gradient(rgb(86, 233, 13) 0%, rgb(13, 136, 21) 100%); color: rgb(254, 254, 254); font-variant-numeric: lining-nums tabular-nums; font-family: Gilroy; font-size: 10px; font-style: normal; font-weight: 600; line-height: 12px; text-transform: uppercase;">
-                                        <picture class="icon--QgkaG">
-                                            <source srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/0193445d-0481-7351-84fc-e3778dab99ff__ZGVmYXVsdF9kYXJr.webp?format=webp&amp;height=12&amp;width=12 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/0193445d-0481-7351-84fc-e3778dab99ff__ZGVmYXVsdF9kYXJr.webp?format=webp&amp;height=24&amp;width=24 2x
-  ">
-                                            <source srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/0193445d-0481-7351-84fc-e3778dab99ff__ZGVmYXVsdF9kYXJr.jpg?height=12&amp;width=12 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/0193445d-0481-7351-84fc-e3778dab99ff__ZGVmYXVsdF9kYXJr.jpg?height=24&amp;width=24 2x
-  "><img class="icon--QgkaG" width="12" height="12" loading="lazy" alt="picture" srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/0193445d-0481-7351-84fc-e3778dab99ff__ZGVmYXVsdF9kYXJr.jpg?height=12&amp;width=12 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/0193445d-0481-7351-84fc-e3778dab99ff__ZGVmYXVsdF9kYXJr.jpg?height=24&amp;width=24 2x
-  ">
-                                        </picture>
-                                        <div class="ellipsis--_PsgU">New</div>
+                                        <div class="ellipsis--_PsgU">En İyi</div>
                                     </div>
-                                    <div class="flex--FROoX align-items-center--tfa4H"
+                                    <div v-if="game.populer" class="flex--FROoX align-items-center--tfa4H"
                                         style="display: inline-flex; align-items: center; gap: 2px; padding: 2px 4px; width: fit-content; max-width: 100%; font-size: 10px; line-height: 15px; font-weight: 600; font-variant-numeric: lining-nums tabular-nums; border-radius: 4px; background: rgb(255, 0, 4); color: rgb(254, 254, 254); text-transform: uppercase; font-family: Gilroy;">
-                                        <div class="ellipsis--_PsgU">Yüksek RTP
+                                        <div class="ellipsis--_PsgU">Popüler
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="flex--FROoX align-items-center--tfa4H online--PCqtz online--yEzQx"
-                                    style="gap: 8px;"><span class="wrapper--xQUxI brand-color--Cy1CA"
-                                        style="height: 18px; width: 18px; min-width: 18px;"><svg
-                                            xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 20 20" fill="none">
-                                            <path
-                                                d="M8.5 6C8.5 7.38071 7.38071 8.5 6 8.5C4.61929 8.5 3.5 7.38071 3.5 6C3.5 4.61929 4.61929 3.5 6 3.5C7.38071 3.5 8.5 4.61929 8.5 6ZM16.5 6C16.5 7.38071 15.3807 8.5 14 8.5C12.6193 8.5 11.5 7.38071 11.5 6C11.5 4.61929 12.6193 3.5 14 3.5C15.3807 3.5 16.5 4.61929 16.5 6ZM18.5 16.5H13.4836C13.4945 16.3347 13.5 16.168 13.5 16C13.5 14.4672 13.0397 13.0408 12.25 11.8528C12.7876 11.6257 13.3787 11.5 14 11.5C16.4853 11.5 18.5 13.5147 18.5 16V16.5ZM6 11.5C8.48528 11.5 10.5 13.5147 10.5 16V16.5H1.5V16C1.5 13.5147 3.51472 11.5 6 11.5Z"
-                                                stroke="currentColor"></path>
-                                        </svg></span>
-                                    <div class="flex--FROoX align-items-center--tfa4H" style="gap: 4px;"><span
-                                            class="online-count--doIgZ">53</span>
-                                        <div class="ellipsis--_PsgU">oyuncu</div>
                                     </div>
                                 </div>
                                 <div class="game-overlay--zlXt0"><a class="link--EXVkB"
-                                        href="/tr-tr/play_demo_game/01957fc0-4bce-7267-8c1f-f9172577f760">
+                                        :href="`/tr-tr/play_demo_game/${game.game_id}`">
                                         <div class="flex--FROoX direction-column--e4TCZ justify-content-space-between--FG9LF align-items-flex-end--GQYyT width-full--aKfzU overlay--_OWzB"
                                             style="gap: 2px;">
                                             <div class="fav--vC9GF visible--yXKHs">
@@ -142,10 +110,9 @@
                         </div>
                     </div>
                     <div class="game-bottom-info--FddEW" style="height: 56px;">
-                        <div class="ellipsis--_PsgU game-name--QVKni">Turbo Roll
+                        <div class="ellipsis--_PsgU game-name--QVKni">{{ game.game_name }}
                         </div>
-                        <div class="ellipsis--_PsgU provider-name--D0UL6">Baywin
-                            Originals</div>
+                        <div class="ellipsis--_PsgU provider-name--D0UL6">{{ game.provider_name }}</div>
                     </div>
                 </div>
             </div>
@@ -154,7 +121,41 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent, ref, computed } from 'vue'
+
+export default defineComponent({
     name: 'LigoGames',
-};
+    props: {
+        allGames: {
+            type: Array,
+            default: () => []
+        }
+    },
+    setup(props) {
+        const selectedCategory = ref('all')
+
+        const gameTypes = computed(() => {
+            const types = [...new Set(props.allGames.map((game: any) => game.category).filter(Boolean))]
+            return [{ key: 'all', label: 'Tümü' }, ...types.map(type => ({ key: type, label: type }))]
+        })
+
+        const filteredGames = computed(() => {
+            if (selectedCategory.value === 'all') {
+                return props.allGames
+            }
+            return props.allGames.filter((game: any) => game.category === selectedCategory.value)
+        })
+
+        const setCategory = (category: string) => {
+            selectedCategory.value = category
+        }
+
+        return {
+            selectedCategory,
+            gameTypes,
+            filteredGames,
+            setCategory
+        }
+    }
+});
 </script>
