@@ -215,10 +215,10 @@
           </div>
           <div class="buttons-container--fgJxV">
             <div class="buttons--hhyEq">
-              <div class="login--lRki2">
+              <div class="login--lRki2" @click="showLoginModal = true">
                 <div class="ellipsis--_PsgU">GİRİŞ</div>
               </div>
-              <div class="join-now--qfQNZ">
+              <div class="join-now--qfQNZ" @click="showRegisterModal = true">
                 <div class="ellipsis--_PsgU">Kayıt ol</div>
               </div>
             </div>
@@ -385,6 +385,29 @@
           </div>
         </div>
       </div>
+      
+      <!-- Login Modal -->
+      <LoginModal v-model="showLoginModal" @switch-to-register="switchToRegister" />
+      
+      <!-- Register Modal -->
+      <RegisterModal v-model="showRegisterModal" @switch-to-login="switchToLogin" />
 </template>
+
 <script setup lang="ts">
+import { ref } from 'vue'
+import LoginModal from './LoginModal.vue'
+import RegisterModal from './RegisterModal.vue'
+
+const showLoginModal = ref(false)
+const showRegisterModal = ref(false)
+
+const switchToRegister = () => {
+  showLoginModal.value = false
+  showRegisterModal.value = true
+}
+
+const switchToLogin = () => {
+  showRegisterModal.value = false
+  showLoginModal.value = true
+}
 </script>
