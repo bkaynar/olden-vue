@@ -6,27 +6,12 @@
     <div class="slider--PreHF">
       <Swiper v-bind="swiperOptions" class="winners-swiper">
         <SwiperSlide v-for="(winner, i) in props.winners" :key="i">
-          <div class="top-winner--YSmnA">
-            <div class="top-winner-content--mqHl8">
-              <div class="lazy-game-img--sjk9r loaded-high--jYvGy loaded--h8_TN game-image--SKdIM">
-                <img :src="winner.cover || winner.gameImage" width="100" height="100" loading="lazy" alt="game" />
-              </div>
-              <div class="info--ksx3L">
-                <div class="player--ZKWP9">
-                  <div class="player-avatar--vPXMd">
-                    <img width="16" height="16" alt="avatar" src="/images/default-avatar.png" />
-                  </div>
-                  <div class="ellipsis--_PsgU player-name--T85qf">{{ maskUsername(winner.username) }}</div>
-                </div>
-                <div class="ellipsis--_PsgU game-name--seVg0">{{ winner.gameName }}</div>
-                <div class="ellipsis--_PsgU provider-name--zH6SO">{{ winner.provider }}</div>
-              </div>
+          <div class="winner-card">
+            <div class="winner-avatar">
+              {{ winner.username.charAt(0).toUpperCase() }}
             </div>
-            <div class="money-block--vNOv4">
-              <div class="ellipsis--_PsgU money--tNRrR">₺ {{ winner.amount.toLocaleString('tr-TR', {
-                minimumFractionDigits: 2
-              }) }}</div>
-            </div>
+            <div class="winner-name">{{ maskUsername(winner.username) }}</div>
+            <div class="winner-amount">₺{{ formatAmount(winner.amount) }}</div>
           </div>
         </SwiperSlide>
       </Swiper>
@@ -43,11 +28,7 @@ import 'swiper/css'
 const props = defineProps<{
   winners: Array<{
     username: string;
-    gameName: string;
-    provider: string;
     amount: number;
-    gameImage: string;
-    cover: string;
   }>
 }>()
 
@@ -55,8 +36,8 @@ const modules = [Autoplay]
 
 const swiperOptions = {
   modules,
-  slidesPerView: 4,
-  spaceBetween: 50,
+  slidesPerView: 6,
+  spaceBetween: 20,
   loop: true,
   autoplay: {
     delay: 2500,
@@ -66,23 +47,23 @@ const swiperOptions = {
   slidesPerGroup: 1,
   breakpoints: {
     320: {
-      slidesPerView: 1,
-      spaceBetween: 30,
+      slidesPerView: 2,
+      spaceBetween: 15,
       slidesPerGroup: 1,
     },
     640: {
-      slidesPerView: 2,
-      spaceBetween: 40,
+      slidesPerView: 3,
+      spaceBetween: 15,
       slidesPerGroup: 1,
     },
     768: {
-      slidesPerView: 3,
-      spaceBetween: 45,
+      slidesPerView: 4,
+      spaceBetween: 20,
       slidesPerGroup: 1,
     },
     1024: {
-      slidesPerView: 4,
-      spaceBetween: 50,
+      slidesPerView: 6,
+      spaceBetween: 20,
       slidesPerGroup: 1,
     },
   }
@@ -96,6 +77,15 @@ function maskUsername(username: string) {
   return first2 + stars + last2;
 }
 
+function formatAmount(amount: number) {
+  if (amount >= 1000000) {
+    return (amount / 1000000).toFixed(1) + 'M';
+  } else if (amount >= 1000) {
+    return (amount / 1000).toFixed(1) + 'K';
+  }
+  return amount.toLocaleString('tr-TR');
+}
+
 console.log('TopWinners props.winners:', props.winners)
 </script>
 
@@ -104,11 +94,46 @@ console.log('TopWinners props.winners:', props.winners)
   padding-bottom: 0;
 }
 
-.top-winner--YSmnA {
-  height: 100%;
+.winner-card {
   display: flex;
   flex-direction: column;
-  margin-right: 20px;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 12px;
+  padding: 12px 8px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  min-height: 80px;
+}
+
+.winner-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.winner-name {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.5px;
+}
+
+.winner-amount {
+  font-size: 12px;
+  font-weight: 700;
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
 }
 
 .swiper-slide {
