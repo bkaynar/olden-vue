@@ -1,15 +1,34 @@
 <template>
   <q-layout view="hHh Lpr l1f">
-    <slot/>
+    <!-- Mobile Header -->
+    <MobileHeader />
+    
+    <!-- Main content area -->
+    <q-page-container class="main-content-wrapper">
+      <q-page class="main-content">
+        <slot />
+      </q-page>
+    </q-page-container>
+    
+    <!-- Mobile Footer -->
+    <MobileFooter />
+    
+    <!-- Mobile Bottom Navigation -->
+    <BottomNav />
   </q-layout>
 </template>
-s
+
 <script lang="ts">
 import { defineComponent } from 'vue'
+import MobileHeader from '../components/MobileHeader.vue'
+import MobileFooter from '../components/MobileFooter.vue'
+import BottomNav from '../components/BottomNav.vue'
 
 export default defineComponent({
   components: {
-    
+    MobileHeader,
+    MobileFooter,
+    BottomNav
   }
 })
 </script>

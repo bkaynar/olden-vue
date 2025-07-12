@@ -26,7 +26,6 @@ import { usePage } from '@inertiajs/vue3'
 import { useHead } from '@vueuse/head'
 import MainLayout from '../layouts/MainLayout.vue'
 import TopWinners from '@/components/TopWinners.vue';
-import DavetEtKazan from '@/components/DavetEtKazan.vue';
 import LigoGames from '@/components/LigoGames.vue'
 import LigoCasino from '@/components/LigoCasino.vue';
 import AppFooter from '@/components/Footer.vue';
@@ -39,7 +38,7 @@ import OldenPreFooter from '@/components/OldenPreFooter.vue';
 export default defineComponent({
     name: 'HomePage',
     layout: MainLayout,
-    components: { TopWinners, DavetEtKazan, LigoGames, LigoCasino, AppFooter, HomeCarousel, LigoLiveCasino, OldenHomeBanner, OldenPreFooter },
+    components: { TopWinners, LigoGames, LigoCasino, AppFooter, HomeCarousel, LigoLiveCasino, OldenHomeBanner, OldenPreFooter },
     props: {
         carouselItems: {
             type: Array,
