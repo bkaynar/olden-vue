@@ -1,7 +1,7 @@
 <template>
     <div class="all-games-for-landing--byfR9">
         <div class="section-title--WFPh_">
-            <div class="logo--IXshK loader--ud87y"></div>OldenCasino
+            <div class="logo--IXshK loader--ud87y"></div>Olden Yeni Oyunlar
         </div>
         <div>
             <div class="flex--FROoX justify-content-space-between--FG9LF align-items-center--tfa4H width-full--aKfzU scroll-container--NegAT"
@@ -10,23 +10,14 @@
                     <div class="scroll-inner--hoEfS"
                         style="user-select: none; -webkit-user-drag: none; touch-action: auto;">
                         <div class="track-wrapper--PYNfr">
-                            <div class="track--VvsrB track--lLD_k"><button class="label--vzvXT active-label--fYpJ3">
-                                    <div class="ellipsis--_PsgU">Tümü</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Popüler</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Yeni Oyunlar</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Drop&amp;Wins</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Jackpot</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Megaways</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">Buy Freespin</div>
-                                </button><button class="label--vzvXT">
-                                    <div class="ellipsis--_PsgU">VIP Bell Link</div>
-                                </button></div>
+                            <div class="track--VvsrB track--lLD_k">
+                                <button v-for="category in gameCategories" 
+                                        :key="category.key"
+                                        @click="setCategory(category.key)"
+                                        :class="['label--vzvXT', { 'active-label--fYpJ3': selectedCategory === category.key }]">
+                                    <div class="ellipsis--_PsgU">{{ category.label }}</div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div><a href="/tr-tr/casino/label/c4c9e582-7068-4233-bbdc-37ec9fca0926"><button
@@ -37,43 +28,24 @@
                     </button></a>
             </div>
             <div style="display: grid; grid-template: 1fr / repeat(6, 1fr); gap: 16px;">
-                <div class="grid-item--hCbSj grid-item--i_Lyu" style="grid-area: 1 / 1 / span 1 / span 1;">
+                <div v-for="(oyun, index) in filteredGames.slice(0, 6)" :key="index" 
+                     class="grid-item--hCbSj grid-item--i_Lyu" 
+                     :style="`grid-area: 1 / ${index + 1} / span 1 / span 1;`">
                     <div class="grid-header--QFnkm" style="padding-bottom: calc(100% + 0px);">
                         <div class="grid-header-container--rxYb4">
                             <div class="inner--u4tpo">
                                 <div class="lazy-game-img--sjk9r loaded-high--jYvGy loaded--h8_TN fallback--Bvtqc">
                                     <picture class="img-high--AQcT9 picture--Umaem game-img--EXXY2">
-                                        <img class="img-high--AQcT9 picture--Umaem game-img--EXXY2" loading="lazy"
-                                            alt="picture"
-                                            srcset="https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/0192e42d-29e1-7e01-bb7d-d1897a8297a0__R0FURU9GQkFZV0lOLTQ5NHg0OTQuZ2lm.gif">
+                                        <img class="img-high--AQcT9 picture--Umaem game-img--EXXY2" 
+                                             loading="lazy"
+                                             :alt="`Oyun ${index + 1}`"
+                                             :src="oyun.gorsel">
                                     </picture>
                                 </div>
                                 <div class="flex--FROoX badges--R9RLh badge--ugkBh" style="gap: 4px;">
                                     <div class="flex--FROoX align-items-center--tfa4H"
-                                        style="display: inline-flex; align-items: center; gap: 2px; width: fit-content; max-width: 100%; padding: 2px 4px 2px 2px; border-radius: 4px; background: linear-gradient(90deg, rgb(208, 31, 201) 0%, rgb(71, 73, 246) 100%); color: rgb(254, 254, 254); font-variant-numeric: lining-nums tabular-nums; font-family: Gilroy; font-size: 10px; font-style: normal; font-weight: 600; line-height: 12px; text-transform: uppercase;">
-                                        <picture class="icon--QgkaG">
-                                            <source srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/b0ffe58e70454defa0efaf993dfd1ddb__QWRzJUM0JUIxeit0YXNhciVDNCVCMW0ucG5n.webp?format=webp&amp;height=12&amp;width=12 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/b0ffe58e70454defa0efaf993dfd1ddb__QWRzJUM0JUIxeit0YXNhciVDNCVCMW0ucG5n.webp?format=webp&amp;height=24&amp;width=24 2x
-  ">
-                                            <source srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/b0ffe58e70454defa0efaf993dfd1ddb__QWRzJUM0JUIxeit0YXNhciVDNCVCMW0ucG5n.jpg?height=12&amp;width=12 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/b0ffe58e70454defa0efaf993dfd1ddb__QWRzJUM0JUIxeit0YXNhciVDNCVCMW0ucG5n.jpg?height=24&amp;width=24 2x
-  "><img class="icon--QgkaG" width="12" height="12" loading="lazy" alt="picture" srcset="
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/b0ffe58e70454defa0efaf993dfd1ddb__QWRzJUM0JUIxeit0YXNhciVDNCVCMW0ucG5n.jpg?height=12&amp;width=12 1x,
-  https://api-baywin-tr--prd--pl-sb.dt3dterd.com/fileserver_public__api/public/gamemanager/b0ffe58e70454defa0efaf993dfd1ddb__QWRzJUM0JUIxeit0YXNhciVDNCVCMW0ucG5n.jpg?height=24&amp;width=24 2x
-  ">
-                                        </picture>
-                                        <div class="ellipsis--_PsgU">Baywin Özel
-                                        </div>
-                                    </div>
-                                    <div class="flex--FROoX align-items-center--tfa4H"
-                                        style="display: inline-flex; align-items: center; gap: 2px; padding: 2px 4px; width: fit-content; max-width: 100%; font-size: 10px; line-height: 12px; font-weight: 600; font-variant-numeric: lining-nums tabular-nums; border-radius: 4px 1px; background: rgb(209, 68, 241); color: rgb(254, 254, 254); text-transform: uppercase; font-family: Gilroy;">
-                                        <div class="ellipsis--_PsgU">Hot</div>
-                                    </div>
-                                    <div class="flex--FROoX align-items-center--tfa4H"
-                                        style="display: inline-flex; align-items: center; gap: 2px; padding: 2px 4px; width: fit-content; max-width: 100%; font-size: 10px; line-height: 12px; font-weight: 600; font-variant-numeric: lining-nums tabular-nums; border-radius: 4px; background: rgb(255, 0, 4); color: rgb(254, 254, 254); text-transform: uppercase; font-family: Gilroy;">
-                                        <div class="ellipsis--_PsgU">Top</div>
+                                        style="display: inline-flex; align-items: center; gap: 2px; padding: 2px 4px; width: fit-content; max-width: 100%; font-size: 10px; line-height: 12px; font-weight: 600; font-variant-numeric: lining-nums tabular-nums; border-radius: 4px; background: rgb(0, 255, 136); color: rgb(0, 0, 0); text-transform: uppercase; font-family: Gilroy;">
+                                        <div class="ellipsis--_PsgU">Yeni</div>
                                     </div>
                                 </div>
                                 <div class="flex--FROoX align-items-center--tfa4H online--PCqtz online--yEzQx"
@@ -91,7 +63,7 @@
                                     </div>
                                 </div>
                                 <div class="game-overlay--zlXt0"><a class="link--EXVkB"
-                                        href="/tr-tr/play_demo_game/0192e1b5-457c-748e-a21a-00578481e307">
+                                        :href="oyun.url">
                                         <div class="flex--FROoX direction-column--e4TCZ justify-content-space-between--FG9LF align-items-flex-end--GQYyT width-full--aKfzU overlay--_OWzB"
                                             style="gap: 2px;">
                                             <div class="fav--vC9GF visible--yXKHs">
@@ -126,10 +98,8 @@
                         </div>
                     </div>
                     <div class="game-bottom-info--FddEW" style="height: 56px;">
-                        <div class="ellipsis--_PsgU game-name--QVKni">Gates of
-                            Baywin</div>
-                        <div class="ellipsis--_PsgU provider-name--D0UL6">Pragmatic
-                            Play</div>
+                        <div class="ellipsis--_PsgU game-name--QVKni">Oyun {{ index + 1 }}</div>
+                        <div class="ellipsis--_PsgU provider-name--D0UL6">Olden Casino</div>
                     </div>
                 </div>
             </div>
@@ -138,7 +108,37 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent, ref, computed } from 'vue'
+
+export default defineComponent({
     name: 'LigoCasino',
-};
+    props: {
+        oyunlar: {
+            type: Array,
+            default: () => []
+        }
+    },
+    setup(props) {
+        const selectedCategory = ref('all')
+
+        const gameCategories = computed(() => {
+            return [{ key: 'all', label: 'Tümü' }]
+        })
+
+        const filteredGames = computed(() => {
+            return props.oyunlar
+        })
+
+        const setCategory = (category: string) => {
+            selectedCategory.value = category
+        }
+
+        return {
+            selectedCategory,
+            gameCategories,
+            filteredGames,
+            setCategory
+        }
+    }
+});
 </script>

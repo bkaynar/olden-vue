@@ -109,12 +109,23 @@ class HomeController extends Controller
             ];
         });
 
+
+        //SELECT * FROM oyunlar ORDER BY sira ASC Oyun modelinden verileri çekiyoruz
+        $oyunlar = \App\Models\Oyun::orderBy('sira', 'asc')->get()->map(function ($oyun) {
+            return [
+                'gorsel' => $oyun->gorsel,
+                'url' => $oyun->url,
+                'sira' => $oyun->sira,
+            ];
+        });
+
         return Inertia::render('Home', [
             'carouselItems' => $carouselItems,
             'lastWinners' => $lastWinners,
             'allGames' => $allGames,
             'liveCasinoGames' => $liveCasinoGames,
             'casinoOyunlari' => $casinoOyunlari,
+            'oyunlar' => $oyunlar,
         ]);
     }
 }

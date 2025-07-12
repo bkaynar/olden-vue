@@ -9,7 +9,7 @@
                         @tab-change="activeTab = $event" />
                     <DavetEtKazan />
                     <LigoGames :allGames="allGames" />
-                    <LigoCasino />
+                    <LigoCasino :oyunlar="oyunlar" />
                     <LigoLiveCasino :liveCasinoGames="liveCasinoGames" />
                     <OldenHomeBanner/>
                     <!--<OldenPreFooter />-->
@@ -54,6 +54,10 @@ export default defineComponent({
             default: () => []
         },
         liveCasinoGames: {
+            type: Array,
+            default: () => []
+        },
+        oyunlar: {
             type: Array,
             default: () => []
         }
