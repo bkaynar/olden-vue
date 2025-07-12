@@ -3027,6 +3027,7 @@ import { defineComponent } from 'vue'
 import MobileLayout from '@/layouts/MobileLayout.vue'
 import MobileTopWinners from '@/components/MobileTopWinners.vue'
 import OldenMobileGames from '@/components/OldenMobileGames.vue'
+import MobileNavbar from '@/components/MobileNavbar.vue'
 import HomeCarousel from '@/components/HomeCarousel.vue'
 export default defineComponent({
     name: 'HomePage',
@@ -3034,6 +3035,7 @@ export default defineComponent({
     components: {
         OldenMobileGames,
         MobileTopWinners,
+        MobileNavbar,
         HomeCarousel,
     },
     props: {
