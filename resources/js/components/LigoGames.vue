@@ -29,6 +29,7 @@
                         </div>
                     </button></a>
             </div>
+            <!-- burada döngü ile veri getirilecek-->
             <div style="display: grid; grid-template: 1fr / repeat(6, 1fr); gap: 16px;">
                 <div class="grid-item--hCbSj grid-item--i_Lyu" style="grid-area: 1 / 1 / span 1 / span 1;">
                     <div class="grid-header--QFnkm" style="padding-bottom: calc(100% + 0px);">
