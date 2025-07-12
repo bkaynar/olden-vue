@@ -26,7 +26,7 @@
                 <div class="ellipsis--_PsgU">Giriş</div>
               </div>
             </a>
-            <div class="center-menu-btn--_jYrx"><span class="wrapper--xQUxI"
+            <div class="center-menu-btn--_jYrx green-theme"><span class="wrapper--xQUxI"
                 style="height: 80px; width: 80px; min-width: 80px;"><svg xmlns="http://www.w3.org/2000/svg" width="30"
                   height="30" viewBox="0 0 113 112" fill="none">
                   <path
@@ -212,5 +212,78 @@
             </div>
           </div>
 </template>
+
 <script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'BottomNav'
+})
 </script>
+
+<style scoped>
+/* Green Theme Bottom Navigation */
+.landing-bottom-menu--A_2Xo {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    background: linear-gradient(135deg, #0a4d3a 0%, #1a5f4a 100%) !important;
+    backdrop-filter: blur(10px) !important;
+    border-top: 1px solid rgba(34, 197, 94, 0.3) !important;
+    display: flex !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    padding: 8px 16px 8px 16px !important;
+    z-index: 9999 !important;
+    box-shadow: 0 -4px 20px rgba(34, 197, 94, 0.2) !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+}
+
+.landing-bottom-menu--A_2Xo .btn--xAOBg {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 8px 4px !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease !important;
+    flex: 1 !important;
+    text-decoration: none !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    max-width: 80px !important;
+}
+
+.landing-bottom-menu--A_2Xo .btn--xAOBg:hover {
+    background: rgba(34, 197, 94, 0.2) !important;
+    color: #22c55e !important;
+}
+
+/* Green Center Button */
+.center-menu-btn--_jYrx.green-theme {
+    position: relative !important;
+    top: -10px !important;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+    border-radius: 50% !important;
+    padding: 15px !important;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4) !important;
+    transition: all 0.2s ease !important;
+}
+
+.center-menu-btn--_jYrx.green-theme:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.6) !important;
+}
+
+.landing-bottom-menu--A_2Xo .text--sKI_p {
+    font-size: 10px !important;
+    margin-top: 4px !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+}
+
+.landing-bottom-menu--A_2Xo .icon--O5OO9 {
+    margin-bottom: 2px !important;
+}
+</style>
