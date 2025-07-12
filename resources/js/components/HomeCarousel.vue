@@ -196,6 +196,99 @@ export default defineComponent({
     }
 }
 
+/* iPad Responsive Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .banner-container--ermJA {
+        margin: 0 24px 30px 24px !important;
+        padding: 0 !important;
+        width: calc(100% - 48px) !important;
+        height: 200px !important;
+    }
+    
+    .carousel-container--W3CqL {
+        border-radius: 16px !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    .carousel--sPpxd {
+        border-radius: 16px !important;
+        height: 250px !important;
+    }
+    
+    .banner--cswSm {
+        height: 250px !important;
+        border-radius: 16px !important;
+    }
+    
+    .image--E8HoT {
+        height: 250px !important;
+        width: 100% !important;
+        border-radius: 16px !important;
+        object-fit: cover !important;
+    }
+    
+    .pagination-container {
+        bottom: 20px !important;
+    }
+    
+    :deep(.carousel-pagination .dot--kZnIh) {
+        width: 35px !important;
+        height: 5px !important;
+    }
+    
+    :deep(.carousel-pagination .dot--kZnIh.active--ahLJx) {
+        width: 45px !important;
+        height: 5px !important;
+    }
+}
+
+/* iPad Pro & Large Tablets - Width < 1024px */
+@media (min-width: 1025px) and (max-width: 1194px) {
+    .banner-container--ermJA {
+        margin: 0 32px 30px 32px !important;
+        padding: 0 !important;
+        width: calc(100% - 64px) !important;
+    }
+    
+    .carousel-container--W3CqL {
+        border-radius: 20px !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    .carousel--sPpxd {
+        border-radius: 20px !important;
+        height: 220px !important;
+    }
+    
+    .banner--cswSm {
+        height: 220px !important;
+        border-radius: 20px !important;
+    }
+    
+    .image--E8HoT {
+        height: 220px !important;
+        width: 100% !important;
+        border-radius: 20px !important;
+        object-fit: cover !important;
+    }
+    
+    .pagination-container {
+        bottom: 18px !important;
+    }
+    
+    :deep(.carousel-pagination .dot--kZnIh) {
+        width: 40px !important;
+        height: 6px !important;
+    }
+    
+    :deep(.carousel-pagination .dot--kZnIh.active--ahLJx) {
+        width: 50px !important;
+        height: 6px !important;
+    }
+}
+
 @media (max-width: 480px) {
     .carousel--sPpxd {
         height: 180px !important;
